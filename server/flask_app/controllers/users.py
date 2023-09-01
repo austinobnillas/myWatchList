@@ -3,7 +3,8 @@ from flask_app import app
 from flask_app.models import user
 from flask import jsonify, request, make_response
 from flask_bcrypt import Bcrypt
-secret_key="secret"
+bcrypt = Bcrypt(app)
+secret_key = app.secret_key
 
 def check_jwt():
     isToken = False
@@ -19,17 +20,17 @@ def check_jwt():
 @app.route('/api/register', methods=['POST'])
 def register ():
     data = request.get_json()
+    pw_hash = bcrypt.generate_password_hash(data['password'])
     new_user = {
         'username': data['username'],
         'email': data['email'],
-        'password': data['password']
+        'password': pw_hash
     }
+    # JWT CREATION
     payload = {
         'username': data['username'],
         'exp': "2h"
         }
-
-    # JWT CREATION
     token = jwt.encode(payload, secret_key, algorithm="HS256")
     user.User.register(new_user)
     response = make_response(jsonify({'message': 'Token generated'}))
@@ -44,7 +45,8 @@ def login ():
     # print ("this is :", user_account['username'])
     if not user_account:
         return jsonify({"msg": "invalid username"}), 401
-    if data['password'] != user_account['password']:
+    if not bcrypt.check_password_hash(user_account['password'], data['password']):
+    # if data['password'] != user_account['password']:
         return jsonify({"msg": "invalid password"}), 401
     # JWT CREATION
     print(data['username'])
