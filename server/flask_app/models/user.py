@@ -20,12 +20,24 @@ class User():
         """
         return connectToMySQL(db).query_db(query, data)
 
+    def login (data): 
+        query = """
+            SELECT * FROM users
+            WHERE username = %(username)s;
+        """
+        results = connectToMySQL(db).query_db(query, data)
+        print (results)
+        if len(results) < 1:
+            return False
+        return results[0]
+
     def get_all_users(): 
         query = """
             SELECT * FROM users
         """
         results = connectToMySQL(db).query_db(query)
         print(results)
+        
         return results 
 
     

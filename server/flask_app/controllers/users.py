@@ -2,9 +2,21 @@ import jwt
 from flask_app import app
 from flask_app.models import user
 from flask import jsonify, request, make_response
+from flask_bcrypt import Bcrypt
 secret_key="secret"
 
-@app.route('/register', methods=['POST'])
+def check_jwt():
+    isToken = False
+    token = request.cookies.get('jwt_token')  # Get the token from the cookie
+    print(token)
+    if not token:
+        return jsonify({"message": "Token is missing"}), 401
+    else:
+        isToken = True
+    return isToken 
+
+#register
+@app.route('/api/register', methods=['POST'])
 def register ():
     data = request.get_json()
     new_user = {
@@ -14,8 +26,8 @@ def register ():
     }
     payload = {
         'username': data['username'],
-        'email': data['email'],
-        'exp': "2h"}
+        'exp': "2h"
+        }
 
     # JWT CREATION
     token = jwt.encode(payload, secret_key, algorithm="HS256")
@@ -24,13 +36,41 @@ def register ():
     response.set_cookie('jwt_token', token)
     return response
 
-@app.route('/logout', methods=['POST'])
+#login
+@app.route('/api/login', methods=['POST'])
+def login (): 
+    data = request.get_json()
+    user_account = user.User.login(request.get_json())
+    # print ("this is :", user_account['username'])
+    if not user_account:
+        return jsonify({"msg": "invalid username"}), 401
+    if data['password'] != user_account['password']:
+        return jsonify({"msg": "invalid password"}), 401
+    # JWT CREATION
+    print(data['username'])
+    payload = {
+        'username': data['username'],
+        'exp': "2h"
+        }
+    token = jwt.encode(payload, secret_key, algorithm="HS256")
+    response = make_response(jsonify({'message': 'Token generated'}))
+    response.set_cookie('jwt_token', token)
+    return response
+    
+
+#logout
+@app.route('/api/logout', methods=['POST'])
 def logout():
     response = make_response("Logged Out")
     response.set_cookie('jwt_token', '', expires=0)
     return response;
 
-@app.route('/users', methods=['GET'])
+#route testing
+@app.route('/api/users', methods=['GET'])
 def get_all(): 
-    users = user.User.get_all_users();
-    return jsonify(users);
+    cookie = check_jwt()
+    if cookie == True:
+        users = user.User.get_all_users();
+        return jsonify(users);
+    else: 
+        return jsonify({"msg": "false"}), 401;
