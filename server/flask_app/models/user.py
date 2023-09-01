@@ -30,6 +30,14 @@ class User():
         if len(results) < 1:
             return False
         return results[0]
+    
+    def get_one_user (data):
+        query = """
+            SELECT * FROM users
+            WHERE username = %(username)s
+        """
+        results = connectToMySQL(db).query_db(query, data)
+        return results
 
     def get_all_users(): 
         query = """
