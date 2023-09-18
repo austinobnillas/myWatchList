@@ -1,4 +1,5 @@
 import jwt
+import datetime
 from flask_app import app
 from flask_app.models import user
 from flask import jsonify, request, make_response
@@ -22,6 +23,8 @@ def check_jwt():
 @app.route('/api/register', methods=['POST'])
 def register ():
     data = request.get_json()
+    expiration_time = datetime.datetime.utcnow() + datetime.timedelta(hours=2)
+    exp_timestamp = int(expiration_time.timestamp())
     #validate data
     is_valid = True
     validation_errors = []
@@ -52,7 +55,7 @@ def register ():
         # JWT CREATION
         payload = {
             'username': data['username'],
-            'exp': "2h"
+            'exp': exp_timestamp
             }
         token = jwt.encode(payload, secret_key, algorithm="HS256")
         user.User.register(new_user)
@@ -64,6 +67,8 @@ def register ():
 @app.route('/api/login', methods=['POST'])
 def login (): 
     data = request.get_json()
+    expiration_time = datetime.datetime.utcnow() + datetime.timedelta(hours=2)
+    exp_timestamp = int(expiration_time.timestamp())
     user_account = user.User.login(request.get_json())
     # print ("this is :", user_account['username'])
     if not user_account:
@@ -75,7 +80,7 @@ def login ():
     print(data['username'])
     payload = {
         'username': data['username'],
-        'exp': "2h"
+        'exp': exp_timestamp
         }
     token = jwt.encode(payload, secret_key, algorithm="HS256")
     response = make_response(jsonify({'message': 'Token generated'}))

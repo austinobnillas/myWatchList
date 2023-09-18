@@ -1,6 +1,4 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-import re 
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 db = "MyWatchList"
 
 class User(): 
@@ -20,7 +18,8 @@ class User():
         """
         return connectToMySQL(db).query_db(query, data)
 
-    def login (data): 
+    @classmethod
+    def login (cls, data): 
         query = """
             SELECT * FROM users
             WHERE username = %(username)s;
@@ -30,8 +29,9 @@ class User():
         if len(results) < 1:
             return False
         return results[0]
-    
-    def get_one_user (data):
+
+    @classmethod
+    def get_one_user (cls, data):
         query = """
             SELECT * FROM users
             WHERE username = %(username)s
@@ -39,7 +39,8 @@ class User():
         results = connectToMySQL(db).query_db(query, data)
         return results
 
-    def get_all_users(): 
+    @classmethod
+    def get_all_users(cls): 
         query = """
             SELECT * FROM users
         """
