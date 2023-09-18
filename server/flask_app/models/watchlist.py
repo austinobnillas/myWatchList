@@ -10,7 +10,7 @@ class Watchlists():
         self.updated_at = data['updated_at']
 # CREATE
     @classmethod
-    def create_watchlist(data):
+    def create_watchlist(cls, data):
         query = """
             INSERT INTO watchlist (watchlist_name, description, created_by, user_id)
             VALUES (%(watchlist_name)s, %(description)s, %(created_by)s, %(user_id)s)
@@ -32,16 +32,27 @@ class Watchlists():
 # READ ONE
     def get_one_watchlist(data):
         query = """
-            SELECT * FROM watchlist 
+            SELECT * FROM watchlist
+            WHERE id = %(id)s
         """
         results = connectToMySQL(db).query_db(query, data)
-        # print(results)
+        print(results)
         return results 
 # UPDATE
-    
-    def edit_watchlist():
-        return
+    def edit_watchlist(data):
+        query = """
+            UPDATE watchlist
+            SET watchlist_name = %(watchlist_name)s,
+            description = %(description)s
+            WHERE id = %(id)s
+        """
+        results = connectToMySQL(db).query_db(query, data)
+        return results
 # DELETE
-    
-    def delete_watchlist():
-        return
+    def delete_watchlist(data):
+        query = """
+            DELETE FROM watchlist
+            WHERE id = %(id)s;
+        """
+        return connectToMySQL(db).query_db(query, data)
+        
