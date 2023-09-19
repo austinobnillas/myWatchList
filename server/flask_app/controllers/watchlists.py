@@ -8,6 +8,16 @@ from flask import jsonify, request, make_response
 from flask_bcrypt import Bcrypt
 secret_key = app.secret_key
 
+def watchlist_validations(data):
+    validation_errors = []
+    if len(data['watchlist_name']) <= 3:
+        validation_errors.append({"name_error": "Watchlist name too short"})
+    if len(data['description']) <= 3:
+        validation_errors.append({"description_error": "Description too short"})
+    if len(data['description']) > 200:
+        validation_errors.append({"description_error": "Description cannot be over 200 charcters"})
+    return validation_errors
+
 @app.route('/api/watchlists', methods=['GET'])
 def get_all_watchlist():
     cookie_check = users.check_jwt()
@@ -29,16 +39,19 @@ def create_watchlist():
         cookie = request.cookies.get('jwt_token')
         token_content = jwt.decode(cookie, secret_key, algorithms="HS256")
         data = request.get_json()
-        user_id = user.User.get_one_user(token_content)
-        watchlist_details = {
-            'watchlist_name': data['watchlist_name'],
-            'description': data['description'],
-            'created_by': token_content['username'],
-            'user_id': user_id[0]['id']
-        }
-        created_watchlist = watchlist.Watchlists.create_watchlist(watchlist_details)
-        response = make_response(jsonify({'message': 'Watchlist created!'}))
-        return response, created_watchlist
+        validations = watchlist_validations(data)
+        if not validations: 
+            user_id = user.User.get_one_user(token_content)
+            watchlist_details = {
+                'watchlist_name': data['watchlist_name'],
+                'description': data['description'],
+                'created_by': token_content['username'],
+                'user_id': user_id[0]['id']
+            }
+            created_watchlist = watchlist.Watchlists.create_watchlist(watchlist_details)
+            response = make_response(jsonify({'message': 'Watchlist created!'}))
+            return response, created_watchlist
+        else: return validations, 401
     else: 
         return jsonify({"msg": "false"}), 401;
 
@@ -47,13 +60,16 @@ def edit_watchlist(id):
     cookie_check = users.check_jwt()
     if cookie_check == True: 
         data = request.get_json()
-        edited_watchlist_details = {
-            'watchlist_name': data['watchlist_name'],
-            'description': data['description'],
-            'id': id
-        }
-        watchlist.Watchlists.edit_watchlist(edited_watchlist_details)
-        return jsonify({"mdg": "updated watchlist"})
+        validations = watchlist_validations(data)
+        if not validations: 
+            edited_watchlist_details = {
+                'watchlist_name': data['watchlist_name'],
+                'description': data['description'],
+                'id': id
+            }
+            watchlist.Watchlists.edit_watchlist(edited_watchlist_details)
+            return jsonify({"msg": "updated watchlist"})
+        else: return validations, 401
     else: 
         return jsonify({"msg": "false"}), 401;
 
