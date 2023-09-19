@@ -22,17 +22,26 @@ class Shows():
         """
         results = connectToMySQL(db).query_db(query, data)
         return results
+#GET ONE SHOW 
+    @classmethod
+    def get_one_show(cls, data):
+        query = """
+            SELECT * FROM shows
+            WHERE id = %(id)s
+        """
+        results = connectToMySQL(db).query_db(query, data)
+        return results
 #UPDATE
     @classmethod 
-    def edit_show(data):
+    def edit_show(cls, data):
         query = """
             UPDATE shows 
-            SET name = %(name)s
-            genre = %(genre)s
-            description = %(description)s
-            number_of_episodes = %(number_of_episodes)s
-            episodes_completed = %(episodes_completed)s
-            status = %(status)s
+            SET name = %(name)s,
+            genre = %(genre)s,
+            description = %(description)s,
+            number_of_episodes = %(number_of_episodes)s,
+            episodes_completed = %(episodes_completed)s,
+            status = %(status)s,
             rating = %(rating)s
             WHERE id = %(id)s
         """
@@ -40,7 +49,7 @@ class Shows():
         return results
 #DELETE
     @classmethod
-    def delete_show(data):
+    def delete_show(cls, data):
         query = """
             DELETE FROM shows
             WHERE id = %(id)s
