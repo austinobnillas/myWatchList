@@ -23,10 +23,7 @@ def get_all_watchlist():
     cookie_check = users.check_jwt()
     if cookie_check == True: 
         cookie = request.cookies.get('jwt_token')
-        print(cookie)
         token_content = jwt.decode(cookie, secret_key, algorithms="HS256")
-        print(token_content)
-        print (token_content['username'])
         watchlists = watchlist.Watchlists.get_all_watchlists(token_content);
         return jsonify(watchlists)
     else: 

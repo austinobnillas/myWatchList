@@ -33,7 +33,8 @@ class Watchlists():
     def get_one_watchlist(data):
         query = """
             SELECT * FROM watchlist
-            WHERE id = %(id)s
+            JOIN shows ON watchlist.id = shows.watchlist_id
+            WHERE watchlist.id = %(id)s
         """
         results = connectToMySQL(db).query_db(query, data)
         print(results)

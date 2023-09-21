@@ -27,8 +27,8 @@ def show_validations(data):
         validation_errors.append({"rating_error": "Rating cannot exceed 10, no matter how good it was!"})
     return validation_errors
 
-@app.route('/api/addshow', methods=['POST'])
-def create_show():
+@app.route('/api/<int:watchlist_id>/addshow', methods=['POST'])
+def add_show(watchlist_id):
     cookie_check = users.check_jwt()
     if cookie_check == True: 
         data = request.get_json()
@@ -41,9 +41,10 @@ def create_show():
                 'number_of_episodes': data['number_of_episodes'],
                 'episodes_completed': data['episodes_completed'],
                 'status': data['status'],
-                'rating': data['rating']
+                'rating': data['rating'],
+                'watchlist_id': watchlist_id
             }
-            show.Shows.create_show(show_details)
+            show.Shows.add_show(show_details)
             return jsonify({"msg": "Show added"});
         else: return validations, 401
     else: 
@@ -55,6 +56,15 @@ def get_one_show(id):
     if cookie_check == True: 
         one_show = show.Shows.get_one_show({"id": id})
         return jsonify(one_show)
+    else: 
+        return jsonify({"msg": "false"}), 401;
+
+@app.route('/api/watchlist/shows/<int:watchlist_id>', methods=['GET'])
+def get_all_shows(watchlist_id):
+    cookie_check = users.check_jwt()
+    if cookie_check == True: 
+        shows = show.Shows.get_all_shows({"id": watchlist_id})
+        return jsonify(shows)
     else: 
         return jsonify({"msg": "false"}), 401;
 

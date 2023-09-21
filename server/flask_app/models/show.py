@@ -15,10 +15,10 @@ class Shows():
 
 #CREATE
     @classmethod
-    def create_show(cls, data):
+    def add_show(cls, data):
         query = """
-            INSERT INTO shows (name, genre, description, number_of_episodes, episodes_completed, status, rating)
-            VALUES (%(name)s, %(genre)s, %(description)s, %(number_of_episodes)s, %(episodes_completed)s, %(status)s, %(rating)s)
+            INSERT INTO shows (name, genre, description, number_of_episodes, episodes_completed, status, rating, watchlist_id)
+            VALUES (%(name)s, %(genre)s, %(description)s, %(number_of_episodes)s, %(episodes_completed)s, %(status)s, %(rating)s, %(watchlist_id)s)
         """
         results = connectToMySQL(db).query_db(query, data)
         return results
@@ -28,6 +28,15 @@ class Shows():
         query = """
             SELECT * FROM shows
             WHERE id = %(id)s
+        """
+        results = connectToMySQL(db).query_db(query, data)
+        return results
+#GET ALL SHOWS
+    @classmethod
+    def get_all_shows(cls, data):
+        query = """
+            SELECT * FROM shows
+            WHERE watchlist_id = %(id)s
         """
         results = connectToMySQL(db).query_db(query, data)
         return results
