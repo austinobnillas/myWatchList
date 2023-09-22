@@ -91,6 +91,7 @@ def login ():
 #logout
 @app.route('/api/logout', methods=['POST'])
 def logout():
+    # expiration = datetime.datetime.now() - datetime.timedelta(days=1)
     response = make_response("Logged Out")
     response.set_cookie('jwt_token', '', expires=0)
     return response;
