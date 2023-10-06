@@ -1,0 +1,39 @@
+body {
+    background-color: black;
+    color: rgb(113, 113, 113);
+}
+
+.dashboardContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebarContainer {
+    height: 100%;
+    width: 50%;
+}
+
+.watchlistContent {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+.showside {
+    height: 100%;
+    width: 50%;
+}
+
+
+.dashboardHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+}
