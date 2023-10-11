@@ -9,6 +9,7 @@ const Dashboard = (props) => {
     const {watchlists, setWatchlists} = props;
     const [watchlistContent, setWatchlistContent] = useState([])
     const [currentWatchlist, setCurrentWatchlist] = useState("");
+    const [currentWatchlistDescription, setCurrentWatchlistDescription] = useState("");
 
         useEffect(() => {
                 axios.get('http://localhost:8000/api/watchlists', {withCredentials: true})
@@ -41,16 +42,21 @@ const Dashboard = (props) => {
     }
         
     return (
-        <>
+        <div className="fullBodyContainer">
             <div className="dashboardHeader">
                     <h1>MyWatchList</h1>
-                    <button onClick={logout}>Logout</button>
+                    <button className="btn btn-danger" onClick={logout}>Logout</button>
             </div>
             <div className="dashboardContainer">
                 <div className="sidebarContainer">
                     <ul className="sidebar">
                         {watchlists.map((watchlist, index) => (
-                            <Link className="watchlistSidebarContainer" key={watchlist.id} onClick={()=> {getWatchListContent(watchlist.id); setCurrentWatchlist(watchlist.watchlist_name)}}>
+                            <Link className="watchlistSidebarContainer" key={watchlist.id} 
+                                onClick={()=> {
+                                    getWatchListContent(watchlist.id); 
+                                    setCurrentWatchlist(watchlist.watchlist_name);
+                                    setCurrentWatchlistDescription(watchlist.description)
+                                    }}>
                                 <li className="watchlistInformation">
                                     <h3>{watchlist.watchlist_name}</h3>
                                     <p>{watchlist.created_by}</p>
@@ -62,7 +68,8 @@ const Dashboard = (props) => {
                 <div className="watchlistContent">
                     <div className="watchlistSide">
                         <h1>{currentWatchlist}</h1>
-                        <table>
+                        <p>{currentWatchlistDescription}</p>
+                        <table className="table table-striped table-dark">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -92,7 +99,7 @@ const Dashboard = (props) => {
                 </div>
             </div>
             
-        </>
+        </div>
     )
 }
 
