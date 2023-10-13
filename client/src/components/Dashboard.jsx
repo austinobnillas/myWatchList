@@ -50,8 +50,8 @@ const Dashboard = (props) => {
             <div className="dashboardContainer">
                 <div className="sidebarContainer">
                     <div className="sidebarTop">
-                        <h3>Your Watchlists</h3>
-                        <Link to={'/createWatchlist'}>Create A Watchlist</Link>
+                        <h2>Your Watchlists</h2>
+                        <Link to={'/createWatchlist'} className="createButton"> + </Link>
                     </div>
                     <ul className="sidebar">
                         {watchlists.map((watchlist, index) => (
@@ -64,7 +64,6 @@ const Dashboard = (props) => {
                                     }}>
                                 <li className="watchlistInformation">
                                     <h3>{watchlist.watchlist_name}</h3>
-                                    <p>{watchlist.created_by}</p>
                                 </li>
                             </Link>
                         ))}
