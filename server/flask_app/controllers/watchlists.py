@@ -10,11 +10,11 @@ secret_key = app.secret_key
 
 def watchlist_validations(data):
     validation_errors = []
-    if len(data['watchlist_name']) <= 3:
+    if len(data['watchlistName']) <= 3:
         validation_errors.append({"name_error": "Watchlist name too short"})
-    if len(data['description']) <= 3:
+    if len(data['watchlistDescription']) <= 3:
         validation_errors.append({"description_error": "Description too short"})
-    if len(data['description']) > 200:
+    if len(data['watchlistDescription']) > 200:
         validation_errors.append({"description_error": "Description cannot be over 200 charcters"})
     return validation_errors
 
@@ -40,14 +40,14 @@ def create_watchlist():
         if not validations: 
             user_id = user.User.get_one_user(token_content)
             watchlist_details = {
-                'watchlist_name': data['watchlist_name'],
-                'description': data['description'],
+                'watchlist_name': data['watchlistName'],
+                'description': data['watchlistDescription'],
                 'created_by': token_content['username'],
                 'user_id': user_id[0]['id']
             }
-            created_watchlist = watchlist.Watchlists.create_watchlist(watchlist_details)
-            response = make_response(jsonify({'message': 'Watchlist created!'}))
-            return response, created_watchlist
+            watchlist.Watchlists.create_watchlist(watchlist_details)
+            # response = make_response(jsonify({'message': 'Watchlist created!'}))
+            return jsonify({"msg": "Watchlist Created"})
         else: return validations, 401
     else: 
         return jsonify({"msg": "false"}), 401;

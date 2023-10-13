@@ -11,19 +11,19 @@ secret_key = app.secret_key
 
 def show_validations(data):
     validation_errors = []
-    if len(data['name']) == 0:
+    if len(data['showName']) == 0:
         validation_errors.append({"name_error": "Name is required!"})
     if len(data['genre']) == 0:
         validation_errors.append({"genre_error": "Genre is required!"})
     if len(data['description']) <= 3:
         validation_errors.append({"description_error": "Description is too short!"})
-    if data['number_of_episodes'] == 0:
+    if data['numberOfEpisodes'] == 0:
         validation_errors.append({"number_of_episodes_error": "Number of episodes is requred!"})
-    if data['episodes_completed'] > data['number_of_episodes']:
+    if data['episodesCompleted'] > data['numberOfEpisodes']:
         validation_errors.append({"episodes_completed_error": "Episodes completed cannot be more than total number of episodes"})
     if not data['status']:
         validation_errors.append({"status_error": "Status is required"})
-    if data['rating'] > 10: 
+    if int(data['rating']) > 10: 
         validation_errors.append({"rating_error": "Rating cannot exceed 10, no matter how good it was!"})
     return validation_errors
 
@@ -32,14 +32,15 @@ def add_show(watchlist_id):
     cookie_check = users.check_jwt()
     if cookie_check == True: 
         data = request.get_json()
+        print(data['rating'])
         validations = show_validations(data)
         if not validations:
             show_details = {
-                'name': data['name'],
+                'name': data['showName'],
                 'genre': data['genre'],
                 'description': data['description'],
-                'number_of_episodes': data['number_of_episodes'],
-                'episodes_completed': data['episodes_completed'],
+                'number_of_episodes': data['numberOfEpisodes'],
+                'episodes_completed': data['episodesCompleted'],
                 'status': data['status'],
                 'rating': data['rating'],
                 'watchlist_id': watchlist_id

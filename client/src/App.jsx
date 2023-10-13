@@ -4,8 +4,9 @@ import axios from 'axios';
 import './App.css'
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import Header from './components/Header';
-import WatchlistContent from './components/WatchlistContent';
+import CreateWatchlist from './components/CreateWatchlist';
+import AddShow from './components/AddShow';
+
 
 function App() {
   const [watchlists, setWatchlists] = useState([]);
@@ -28,6 +29,8 @@ function App() {
         <Routes>
           <Route path={'/'} element={<Login/>}/>
           <Route path={'/dashboard'} element={<Dashboard watchlists={watchlists} setWatchlists={setWatchlists}/>}/>
+          <Route path={'/createWatchlist'} element={<CreateWatchlist/>}/>
+          <Route path={'/addShow/:id'} element={<AddShow watchlists={watchlists} setWatchlists={setWatchlists}/>}/>
         </Routes>
       </div>
     </BrowserRouter>

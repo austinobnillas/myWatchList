@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import axios from 'axios'
 import { useNavigate, Link, BrowserRouter, Routes, Route } from "react-router-dom";
-import WatchlistContent from "./WatchlistContent";
 import { useEffect } from "react";
 
 const Dashboard = (props) => {
@@ -9,6 +8,7 @@ const Dashboard = (props) => {
     const {watchlists, setWatchlists} = props;
     const [watchlistContent, setWatchlistContent] = useState([])
     const [currentWatchlist, setCurrentWatchlist] = useState("");
+    const [currentWatchlistId, setCurrentWatchlistId] = useState(0);
     const [currentWatchlistDescription, setCurrentWatchlistDescription] = useState("");
 
         useEffect(() => {
@@ -49,13 +49,18 @@ const Dashboard = (props) => {
             </div>
             <div className="dashboardContainer">
                 <div className="sidebarContainer">
+                    <div className="sidebarTop">
+                        <h3>Your Watchlists</h3>
+                        <Link to={'/createWatchlist'}>Create A Watchlist</Link>
+                    </div>
                     <ul className="sidebar">
                         {watchlists.map((watchlist, index) => (
                             <Link className="watchlistSidebarContainer" key={watchlist.id} 
                                 onClick={()=> {
                                     getWatchListContent(watchlist.id); 
                                     setCurrentWatchlist(watchlist.watchlist_name);
-                                    setCurrentWatchlistDescription(watchlist.description)
+                                    setCurrentWatchlistDescription(watchlist.description);
+                                    setCurrentWatchlistId(watchlist.id)
                                     }}>
                                 <li className="watchlistInformation">
                                     <h3>{watchlist.watchlist_name}</h3>
@@ -69,6 +74,7 @@ const Dashboard = (props) => {
                     <div className="watchlistSide">
                         <h1>{currentWatchlist}</h1>
                         <p>{currentWatchlistDescription}</p>
+                        <Link to={`/addShow/${currentWatchlistId}`}>Add a show to this watchlist</Link>
                         <table className="table table-striped table-dark">
                             <thead>
                                 <tr>
@@ -80,7 +86,7 @@ const Dashboard = (props) => {
                             </thead>
                             <tbody>
                                 {watchlistContent.map((watchlistContent, index) => (
-                                    <tr>
+                                    <tr key={watchlistContent.id}>
                                         <td>{watchlistContent.name}</td>
                                         <td>{watchlistContent.genre}</td>
                                         <td>{watchlistContent.number_of_episodes}</td>
@@ -93,12 +99,10 @@ const Dashboard = (props) => {
                         
                     </div>
                     <div className="showSide">
-                            <h1>TESTING SHOW NAME</h1>
+                        <h1>TESTING SHOW NAME</h1>
                     </div>
-                    
                 </div>
             </div>
-            
         </div>
     )
 }
