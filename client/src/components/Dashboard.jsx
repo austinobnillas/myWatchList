@@ -10,6 +10,7 @@ const Dashboard = (props) => {
     const [currentWatchlist, setCurrentWatchlist] = useState("");
     const [currentWatchlistId, setCurrentWatchlistId] = useState(0);
     const [currentWatchlistDescription, setCurrentWatchlistDescription] = useState("");
+    const [showDetails, setShowDetails] = useState([]);
 
         useEffect(() => {
                 axios.get('http://localhost:8000/api/watchlists', {withCredentials: true})
@@ -28,6 +29,17 @@ const Dashboard = (props) => {
             .then((res) => {
                 console.log(res.data)
                 setWatchlistContent(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    const getShowDetails = (id) => {
+        axios.get(`http://localhost:8000/api/show/${id}`, {withCredentials: true})
+            .then((res) => {
+                console.log(res.data)
+                setShowDetails(res.data)
             })
             .catch((err) => {
                 console.log(err)
@@ -86,7 +98,7 @@ const Dashboard = (props) => {
                             <tbody>
                                 {watchlistContent.map((watchlistContent, index) => (
                                     <tr key={watchlistContent.id}>
-                                        <td>{watchlistContent.name}</td>
+                                        <td><Link onClick={() => {getShowDetails(watchlistContent.id)}}>{watchlistContent.name}</Link></td>
                                         <td>{watchlistContent.genre}</td>
                                         <td>{watchlistContent.number_of_episodes}</td>
                                         <td>{watchlistContent.status}</td>
@@ -98,7 +110,28 @@ const Dashboard = (props) => {
                         
                     </div>
                     <div className="showSide">
-                        <h1>TESTING SHOW NAME</h1>
+                        {showDetails.map((showDetails, index) => (
+                            <div className="showSideContainer">
+                                <div className="showTitle">
+                                    <h1>{showDetails.name}</h1>
+                                </div>
+                                <div className="showStatus">
+                                    <p>{showDetails.status}</p>
+                                    <p>Episode: {showDetails.episodes_completed}/{showDetails.number_of_episodes}</p>
+                                    <p>Rating: {showDetails.rating}/10</p>
+                                </div>
+                                <div className="showGenre">
+                                    <p>{showDetails.genre}</p>
+                                </div>
+                                <div className="showDescription">
+                                    <p>{showDetails.description}</p>
+                                </div>
+                        
+                                
+                                
+                                
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
