@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from 'axios'
 import { useNavigate, Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
+import tvIcon from "../assets/tv.png"
 
 const Dashboard = (props) => {
     const navigate = useNavigate();
@@ -74,18 +75,28 @@ const Dashboard = (props) => {
                                     setCurrentWatchlistDescription(watchlist.description);
                                     setCurrentWatchlistId(watchlist.id)
                                     }}>
-                                <li className="watchlistInformation">
-                                    <h3>{watchlist.watchlist_name}</h3>
-                                </li>
+                                <li className="watchlistInformation">{watchlist.watchlist_name}</li>
                             </Link>
                         ))}
                     </ul>
                 </div>
                 <div className="watchlistContent">
                     <div className="watchlistSide">
-                        <h1>{currentWatchlist}</h1>
-                        <p>{currentWatchlistDescription}</p>
-                        <Link to={`/addShow/${currentWatchlistId}`}>Add a show to this watchlist</Link>
+                        <div className="watchlistHeader">
+                            <img className="watchlistImg"src={tvIcon} alt="Image of TV" />
+                            <div className="headerRight">
+                                <div>
+                                    <h1>{currentWatchlist}</h1>
+                                    <p>{currentWatchlistDescription}</p>
+                                </div>
+                                
+                                {
+                                    currentWatchlist ? 
+                                    <Link to={`/addShow/${currentWatchlistId}`}>Add a show to this watchlist</Link> : ''
+                                }
+                            </div>
+                        </div>
+                        
                         <table className="table table-striped table-dark">
                             <thead>
                                 <tr>
@@ -111,7 +122,7 @@ const Dashboard = (props) => {
                     </div>
                     <div className="showSide">
                         {showDetails.map((showDetails, index) => (
-                            <div className="showSideContainer">
+                            <div className="showSideContainer" key={showDetails.id}>
                                 <div className="showTitle">
                                     <h1>{showDetails.name}</h1>
                                 </div>
