@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&family=Roboto&family=Roboto+Mono&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     }
+
+p, h1, h2, h3, h4, h5 {
+    margin: 0;
+    font-family: Roboto Mono;
+}
 
 .fullBodyContainer {
     height: 100vh;
@@ -56,7 +63,7 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 185px);
+    height: calc(100vh - 165px);
     overflow-y: scroll;
 }
 .sidebar::-webkit-scrollbar {
@@ -72,10 +79,19 @@
     justify-content: space-between;
     border-radius: 10px;
 }
+.sidebarImg {
+    height: 30px;
+    width: 30px;
+    background-color: whitesmoke;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
 .watchlistInformation {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-left: 10px;
 }
 .watchlistTitle {
     align-items: center;
@@ -132,23 +148,48 @@
 .showSideContainer {
     display: flex;
     flex-direction: column;
+    margin: 10px;
+}
+
+.showImg {
+    height: 250px;
+    width: 250px;
+    background-color: rgb(176, 176, 176);
+    padding: 10px;
+    border-radius: 10px;
+    align-self: center;
 }
 
 .showTitle {
-    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+.showRating {
+    margin-bottom: 10px;
+    font-style: italic;
 }
 .showStatus {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    background-color: rgb(11, 11, 11);
+    border-radius: 30px;
+    padding: 5px;
+    margin-bottom: 10px;
 }
 .showGenre {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
+    font-style: italic;
+    margin-bottom: 10px;
 }
 .showDescription {
-    padding-left: 10px;;
+
 }
 
 

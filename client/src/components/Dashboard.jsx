@@ -66,7 +66,7 @@ const Dashboard = (props) => {
                         <h2>Your Watchlists</h2>
                         <Link to={'/createWatchlist'} className="createButton"> + </Link>
                     </div>
-                    <ul className="sidebar">
+                    <div className="sidebar">
                         {watchlists.map((watchlist, index) => (
                             <Link className="watchlistSidebarContainer" key={watchlist.id} 
                                 onClick={()=> {
@@ -75,10 +75,10 @@ const Dashboard = (props) => {
                                     setCurrentWatchlistDescription(watchlist.description);
                                     setCurrentWatchlistId(watchlist.id)
                                     }}>
-                                <li className="watchlistInformation">{watchlist.watchlist_name}</li>
+                                <p className="watchlistInformation"><img className="sidebarImg"src={tvIcon} alt="Image of TV" />{watchlist.watchlist_name}</p>
                             </Link>
                         ))}
-                    </ul>
+                    </div>
                 </div>
                 <div className="watchlistContent">
                     <div className="watchlistSide">
@@ -123,18 +123,21 @@ const Dashboard = (props) => {
                     <div className="showSide">
                         {showDetails.map((showDetails, index) => (
                             <div className="showSideContainer" key={showDetails.id}>
+                                <img className="showImg"src={tvIcon} alt="Image of TV" />
                                 <div className="showTitle">
-                                    <h1>{showDetails.name}</h1>
+                                    <h3 className="showName">{showDetails.name}</h3>
+                                    
                                 </div>
+                                <p className="showRating">Rating: {showDetails.rating}/10</p>
+                                <p className="showGenre">Genre: {showDetails.genre}</p>
                                 <div className="showStatus">
                                     <p>{showDetails.status}</p>
                                     <p>Episode: {showDetails.episodes_completed}/{showDetails.number_of_episodes}</p>
-                                    <p>Rating: {showDetails.rating}/10</p>
+                                    
                                 </div>
-                                <div className="showGenre">
-                                    <p>{showDetails.genre}</p>
-                                </div>
+                                
                                 <div className="showDescription">
+                                    <h5>Description:</h5>
                                     <p>{showDetails.description}</p>
                                 </div>
                         
