@@ -1,5 +1,5 @@
 # MyWatchList   
-### *This app is in ongoing production*
+### * This app is in ongoing production *
 
 Techstack: Javascript | Python | ReactJS | Flask | HTML | CSS | MySQL  
 Frontend Dependencies: axios | react-router-dom  
