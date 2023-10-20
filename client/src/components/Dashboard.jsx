@@ -83,7 +83,7 @@ const Dashboard = (props) => {
                 <div className="watchlistContent">
                     <div className="watchlistSide">
                         <div className="watchlistHeader">
-                            <img className="watchlistImg"src={tvIcon} alt="Image of TV" />
+                            {currentWatchlist ? <img className="watchlistImg"src={tvIcon} alt="Image of TV" /> : ''}
                             <div className="headerRight">
                                 <div>
                                     <h1>{currentWatchlist}</h1>
@@ -98,14 +98,15 @@ const Dashboard = (props) => {
                         </div>
                         
                         <table className="table table-striped table-dark">
-                            <thead>
+                        {currentWatchlist ? <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Genre</th>
                                     <th>Number of Episodes</th>
                                     <th>Status</th>
                                 </tr>
-                            </thead>
+                            </thead>: <h1>No Watchlist Selected</h1>}
+                            
                             <tbody>
                                 {watchlistContent.map((watchlistContent, index) => (
                                     <tr key={watchlistContent.id}>
