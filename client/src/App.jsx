@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import CreateWatchlist from './components/CreateWatchlist';
 import AddShow from './components/AddShow';
+import Register from './components/Register';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <div>
         <Routes>
           <Route path={'/'} element={<Login/>}/>
+          <Route path={'/register'} element={<Register />}/>
           <Route path={'/dashboard'} element={<Dashboard watchlists={watchlists} setWatchlists={setWatchlists}/>}/>
           <Route path={'/createWatchlist'} element={<CreateWatchlist/>}/>
           <Route path={'/addShow/:id'} element={<AddShow watchlists={watchlists} setWatchlists={setWatchlists}/>}/>

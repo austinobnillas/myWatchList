@@ -22,7 +22,7 @@ class User():
     def login (cls, data): 
         query = """
             SELECT * FROM users
-            WHERE username = %(username)s;
+            WHERE BINARY username LIKE %(username)s;
         """
         results = connectToMySQL(db).query_db(query, data)
         print (results)

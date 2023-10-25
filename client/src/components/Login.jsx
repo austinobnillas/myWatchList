@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from 'axios'
 import { useNavigate, Link } from "react-router-dom";
+import loginImg from "../assets/LoginIMG2.jpg"
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -23,23 +24,27 @@ const Login = () => {
 
     return (
         <div className="loginContainer">
+            <img className="loginImg "src={loginImg} alt="LoginImg" />
             <div className="loginForm">
-                <form onSubmit={loginHandler}>
+                
+                <form className="loginFormContainer" onSubmit={loginHandler}>
+                    <h1 className="loginHeader">Login</h1>
+                    <p>Don't Have an account? <Link to={'/register'}>Register Here</Link></p>
                     { errors ? <p className="text-danger">{errors}</p> : null}
-                    <div>
+                    <div className="username">
                         <p>
                             <label htmlFor="Username">Username: </label>
                             <input type="text" onChange={(e) => {setUsername(e.target.value)}}/>
                         </p>
                     </div>
-                    <div>
+                    <div className="password">
                         <p>
                             <label htmlFor="Password">Password: </label>
-                            <input type="text" onChange={(e) => {setPassword(e.target.value)}}/>
+                            <input type="password" onChange={(e) => {setPassword(e.target.value)}}/>
                         </p>
                     </div>
-                    <div>
-                        <button type="submit">Login</button>
+                    <div className="submitButtonContainer">
+                        <button className="btn btn-primary" type="submit">Login</button>
                     </div>
                 </form>
             </div>

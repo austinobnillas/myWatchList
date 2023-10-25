@@ -27,21 +27,26 @@ def register ():
     exp_timestamp = int(expiration_time.timestamp())
     #validate data
     is_valid = True
-    validation_errors = []
+    validation_errors = {}
     if user.User.get_one_user(data):
-        validation_errors.append({"username_exist": "Username taken"})
+        validation_errors["username_exist"] = "Username taken"
+        # append({"username_exist": "Username taken"})
         is_valid = False
     if len(data['username']) <= 3:
-        validation_errors.append({"username_errors": "Please enter a valid username"})
+        validation_errors["username_errors"] = "Please enter a valid username"
+        #.append({"username_errors": "Please enter a valid username"})
         is_valid = False
     if not EMAIL_REGEX.match(data['email']):
-        validation_errors.append({"email_errors": "Please enter a valid email address"})
+        validation_errors["email_errors"] = "Please enter a valid email address"
+        #.append({"email_errors": "Please enter a valid email address"})
         is_valid = False
     if len(data['password']) <= 3:
-        validation_errors.append({"password_error": "Please enter a valid password"})
+        validation_errors["password_error"] = "Please enter a valid password"
+        #.append({"password_error": "Please enter a valid password"})
         is_valid = False
-    if data['confirm_password'] != data['password']:
-        validation_errors.append({"password_confirm_error": "Passwords do not match"})
+    if data['confirmPassword'] != data['password']: 
+        validation_errors["password_confirm_error"] = "Passwords do not match"
+        #.append({"password_confirm_error": "Passwords do not match"})
         is_valid = False
     if is_valid == False:
         return jsonify(validation_errors), 400
@@ -72,10 +77,10 @@ def login ():
     user_account = user.User.login(request.get_json())
     # print ("this is :", user_account['username'])
     if not user_account:
-        return jsonify({"msg": "invalid username"}), 401
+        return jsonify({"msg": "Invalid username/password"}), 401
     if not bcrypt.check_password_hash(user_account['password'], data['password']):
     # if data['password'] != user_account['password']:
-        return jsonify({"msg": "invalid password"}), 401
+        return jsonify({"msg": "Invalid username/password"}), 401
     # JWT CREATION
     print(data['username'])
     payload = {
