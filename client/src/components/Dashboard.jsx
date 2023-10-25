@@ -105,7 +105,7 @@ const Dashboard = (props) => {
                                     <th>Number of Episodes</th>
                                     <th>Status</th>
                                 </tr>
-                            </thead>: <h1>No Watchlist Selected</h1>}
+                            </thead>: ""}
                             
                             <tbody>
                                 {watchlistContent.map((watchlistContent, index) => (
