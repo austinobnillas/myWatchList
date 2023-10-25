@@ -7,7 +7,7 @@ MyWatchList is an app for the average TV show or movie binger. With this app you
 ## Built With:     
 Javascript | Python | ReactJS | Flask | HTML | CSS | MySQL  
 
-## Tools Used:
+### Tools Used:
 MySQLWorkbench | Postman 
 
 ### Frontend Dependencies:   
