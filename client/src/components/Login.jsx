@@ -26,9 +26,8 @@ const Login = () => {
         <div className="loginContainer">
             <img className="loginImg "src={loginImg} alt="LoginImg" />
             <div className="loginForm">
-                
                 <form className="loginFormContainer" onSubmit={loginHandler}>
-                    <h1 className="loginHeader">Login</h1>
+                    <h1 className="loginHeader">MyWatchList | Login</h1>
                     <p>Don't Have an account? <Link to={'/register'}>Register Here</Link></p>
                     { errors ? <p className="text-danger">{errors}</p> : null}
                     <div className="username">
