@@ -6,6 +6,9 @@ MyWatchList is an app for the average TV show or movie binger. With this app you
 
 This app was created with the intention of learning Python for a backend language deeper, using a Python-Flask backend to create the API as well as using a MySQL database and integrating a ReactJS frontend. This app has many opportunities to add future potential features. 
 
+### Example ScreenShot:
+![Example UI](/client/src/assets/UIVersion1.jpeg)
+
 ## Built With:     
 Javascript | Python | ReactJS | Flask | HTML | CSS | MySQL  
 

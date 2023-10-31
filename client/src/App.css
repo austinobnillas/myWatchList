@@ -246,7 +246,17 @@ p, h1, h2, h3, h4, h5 {
 /* Register PAGE */
 
 .formContainer {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
+.formContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.input {
+    margin-left: 5px;
+}
 
 
