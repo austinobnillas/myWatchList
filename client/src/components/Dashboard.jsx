@@ -59,8 +59,6 @@ const Dashboard = (props) => {
     const deleteWatchlistHandler = (id) => {
         axios.delete(`http://localhost:8000/api/deletewatchlist/${id}`, {withCredentials: true})
             .then((res) => {
-                // const updatedWatchlists = watchlists.filter((watchlist, index) => watchlist.id !== id)
-                // setWatchlists(updatedWatchlists)
                 window.location.reload(false)
                 navigate('/dashboard')
             })
@@ -103,19 +101,12 @@ const Dashboard = (props) => {
                                     <p>{currentWatchlistDescription}</p>
                                 </div>
                                 <div className="addAndDelete">
-                                    {
-                                    currentWatchlist ? 
-                                    <button onClick={() => setAddShowForm(true)} className="btn btn-primary" >Add a show to this watchlist</button> : ''
-                                    }
-                                    
-                                    {
-                                    currentWatchlist ? <div className="editDelete">
+                                    {currentWatchlist ? <button onClick={() => setAddShowForm(true)} className="btn btn-primary" >Add a show to this watchlist</button> : '' }
+                                    {currentWatchlist ? <div className="editDelete">
                                         <button  className="btn btn-primary m-1">Edit</button>
                                         <button onClick={() => deleteWatchlistHandler(currentWatchlistId)} className="btn btn-danger m-1">Delete</button>
-                                    </div> : ''
-                                    }
+                                    </div> : ''}
                                 </div>
-                                
                             </div>
                         </div>
                         {addShowForm == true ?

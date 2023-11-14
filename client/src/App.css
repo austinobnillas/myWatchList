@@ -264,4 +264,25 @@ p, h1, h2, h3, h4, h5 {
     margin-left: 5px;
 }
 
+/* ADD SHOW FORM  */
+.addShowForm {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;;
+}
+.formRow1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.formRow3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 

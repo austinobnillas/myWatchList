@@ -10,21 +10,28 @@ from flask_bcrypt import Bcrypt
 secret_key = app.secret_key
 
 def show_validations(data):
-    validation_errors = []
+    validation_errors = {}
     if len(data['showName']) == 0:
-        validation_errors.append({"name_error": "Name is required!"})
+        validation_errors["name_error"] = "Name is required."
+        # validation_errors.append({"name_error": "Name is required!"})
     if len(data['genre']) == 0:
-        validation_errors.append({"genre_error": "Genre is required!"})
+        validation_errors["genre_error"] = "Genre is required."
+        # validation_errors.append({"genre_error": "Genre is required!"})
     if len(data['description']) <= 3:
-        validation_errors.append({"description_error": "Description is too short!"})
+        validation_errors["description_error"] = "Description is too short."
+        # validation_errors.append({"description_error": "Description is too short!"})
     if data['numberOfEpisodes'] == 0:
-        validation_errors.append({"number_of_episodes_error": "Number of episodes is requred!"})
+        validation_errors["number_of_episodes_error"] = "Number of episodes is requred."
+        # validation_errors.append({"number_of_episodes_error": "Number of episodes is requred!"})
     if data['episodesCompleted'] > data['numberOfEpisodes']:
-        validation_errors.append({"episodes_completed_error": "Episodes completed cannot be more than total number of episodes"})
+        validation_errors["episodes_completed_error"] = "Episodes completed cannot be more than total number of episodes"
+        # validation_errors.append({"episodes_completed_error": "Episodes completed cannot be more than total number of episodes"})
     if not data['status']:
-        validation_errors.append({"status_error": "Status is required"})
+        validation_errors["status_error"] = "Status is required."
+        # validation_errors.append({"status_error": "Status is required"})
     if int(data['rating']) > 10: 
-        validation_errors.append({"rating_error": "Rating cannot exceed 10, no matter how good it was!"})
+        validation_errors["rating_error"] = "Rating cannot exceed 10, no matter how good it was!"
+        # validation_errors.append({"rating_error": "Rating cannot exceed 10, no matter how good it was!"})
     return validation_errors
 
 @app.route('/api/<int:watchlist_id>/addshow', methods=['POST'])
@@ -47,7 +54,7 @@ def add_show(watchlist_id):
             }
             show.Shows.add_show(show_details)
             return jsonify({"msg": "Show added"});
-        else: return validations, 401
+        else: return jsonify(validations), 401
     else: 
         return jsonify({"msg": "false"}), 401;
 
