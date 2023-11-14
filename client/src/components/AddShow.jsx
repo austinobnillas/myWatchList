@@ -10,7 +10,7 @@ const AddShow = (props) => {
     const [episodesCompleted, setEpisodesCompleted] = useState(0);
     const [status, setStatus] = useState("");
     const [rating, setRating] = useState(0);
-    const { id } = useParams();
+    const { id } = props;
     const navigate = useNavigate();
 
     console.log(id);
@@ -40,10 +40,6 @@ const AddShow = (props) => {
 
     return (
         <div className="addShowContainer">
-            <div className="addShowHeader">
-                <h1>MyWatchList</h1>
-                <button>Logout</button>
-            </div>
             <div className="addShowFormContainer">
                 <form onSubmit={submitHandler}>
                     <div>

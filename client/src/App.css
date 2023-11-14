@@ -133,7 +133,12 @@ p, h1, h2, h3, h4, h5 {
     flex-direction: column;
     justify-content: space-between;
 }
-
+.addAndDelete {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 /* SHOW CONTENT */
 .showSide {
     flex: 1;
