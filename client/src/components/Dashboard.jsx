@@ -101,7 +101,7 @@ const Dashboard = (props) => {
                                     <p>{currentWatchlistDescription}</p>
                                 </div>
                                 <div className="addAndDelete">
-                                    {currentWatchlist ? <button onClick={() => setAddShowForm(true)} className="btn btn-primary" >Add a show to this watchlist</button> : '' }
+                                    {currentWatchlist ? <button onClick={() => setAddShowForm(true)} className="btn btn-primary">Add a show to this watchlist</button> : '' }
                                     {currentWatchlist ? <div className="editDelete">
                                         <button  className="btn btn-primary m-1">Edit</button>
                                         <button onClick={() => deleteWatchlistHandler(currentWatchlistId)} className="btn btn-danger m-1">Delete</button>
@@ -109,9 +109,10 @@ const Dashboard = (props) => {
                                 </div>
                             </div>
                         </div>
-                        {addShowForm == true ?
-                            <AddShow id={currentWatchlistId}/> : ''
-                        }
+                        {addShowForm == true ? 
+                            <AddShow id={currentWatchlistId}/>
+                            : ''
+                        } 
                         <table className="table table-striped table-dark">
                         {currentWatchlist ? <thead>
                                 <tr>
