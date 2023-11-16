@@ -4,6 +4,7 @@ import { useNavigate, Link, BrowserRouter, Routes, Route } from "react-router-do
 import { useEffect } from "react";
 import tvIcon from "../assets/tv.png"
 import AddShow from "./AddShow";
+import CreateWatchlist from "./CreateWatchlist";
 
 const Dashboard = (props) => {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Dashboard = (props) => {
     const [currentWatchlistDescription, setCurrentWatchlistDescription] = useState("");
     const [showDetails, setShowDetails] = useState([]);
     const [addShowForm, setAddShowForm] = useState(false);
+    const [showCreateWatchlist, setShowCreateWatchlist] = useState(false)
     const [editWatchlistDetails, setEditWatchlistDetails] = useState(false);
 
         useEffect(() => {
@@ -63,6 +65,18 @@ const Dashboard = (props) => {
                 navigate('/dashboard')
             })
     }
+    const createButtonHandler = () => {
+        if (showCreateWatchlist == false)
+            setShowCreateWatchlist(true);
+        if (showCreateWatchlist == true) 
+            setShowCreateWatchlist(false);
+        }
+    const addShowButtonHandler = () => {
+        if (addShowForm == false)
+            setAddShowForm(true)
+        if (addShowForm == true)
+            setAddShowForm(false)
+    }
         
     return (
         <div className="fullBodyContainer">
@@ -74,7 +88,11 @@ const Dashboard = (props) => {
                 <div className="sidebarContainer">
                     <div className="sidebarTop">
                         <h2>Your Watchlists</h2>
-                        <Link to={'/createWatchlist'} className="createButton"> + </Link>
+                        <button onClick={()=> {createButtonHandler(showCreateWatchlist)}} className="createButton">+</button>
+                    </div>
+                    <div>{ showCreateWatchlist == true ? 
+                        <CreateWatchlist/> : ""
+                    }
                     </div>
                     <div className="sidebar">
                         {watchlists.map((watchlist, index) => (
@@ -101,7 +119,7 @@ const Dashboard = (props) => {
                                     <p>{currentWatchlistDescription}</p>
                                 </div>
                                 <div className="addAndDelete">
-                                    {currentWatchlist ? <button onClick={() => setAddShowForm(true)} className="btn btn-primary">Add a show to this watchlist</button> : '' }
+                                    {currentWatchlist ? <button onClick={() => addShowButtonHandler(addShowForm)} className="btn btn-primary">Add a show to this watchlist</button> : '' }
                                     {currentWatchlist ? <div className="editDelete">
                                         <button  className="btn btn-primary m-1">Edit</button>
                                         <button onClick={() => deleteWatchlistHandler(currentWatchlistId)} className="btn btn-danger m-1">Delete</button>
@@ -110,7 +128,14 @@ const Dashboard = (props) => {
                             </div>
                         </div>
                         {addShowForm == true ? 
-                            <AddShow id={currentWatchlistId}/>
+                            <AddShow 
+                            currentWatchlistId={currentWatchlistId} 
+                            setCurrentWatchlistId={setCurrentWatchlistId}
+                            currentWatchlist={currentWatchlist}
+                            setCurrentWatchlist={setCurrentWatchlist}
+                            currentWatchlistDescription={currentWatchlistDescription}
+                            setCurrentWatchlistDescription={setCurrentWatchlistDescription}
+                            />
                             : ''
                         } 
                         <table className="table table-striped table-dark">

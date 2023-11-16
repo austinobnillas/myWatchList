@@ -13,10 +13,10 @@ const CreateWatchlist = (props) => {
         axios.post('http://localhost:8000/api/createwatchlist', 
             {watchlistName, watchlistDescription},
             {withCredentials: true})
-
             .then((res) => {
                 console.log(res.data)
                 navigate('/dashboard')
+                window.location.reload(false)
             })
             .catch((err) => {
                 console.log("ERROR")
@@ -28,21 +28,20 @@ const CreateWatchlist = (props) => {
     return (
         <div className="createWatchlistContainer">
             <div className="createHeader">
-                <h1>MyWatchList</h1>
-                <button>Logout</button>
+                <h3>Create Watchlist</h3>
             </div>
             <div className="createFormContainer">
                 <form onSubmit={submitHandler}>
                     <div>
-                        <label>Watchlist Name:</label>
-                        <input onChange={(e) => setWatchlistName(e.target.value)} type="text" name="watchlistName"/>
+                        <label className="form-label" >Watchlist Name:</label>
+                        <input className="form-control" onChange={(e) => setWatchlistName(e.target.value)} type="text" name="watchlistName"/>
                     </div>
                     <div>
-                        <label>Description:</label>
-                        <input onChange={(e) => setWatchlistDescription(e.target.value)} type="text" name="watchlistDescription"/>
+                        <label className="form-label" >Description:</label>
+                        <input className="form-control" onChange={(e) => setWatchlistDescription(e.target.value)} type="text" name="watchlistDescription"/>
                     </div>
                     <div>
-                        <button>Create</button>
+                        <button className="btn btn-primary">Create</button>
                     </div>
                     
                 </form>

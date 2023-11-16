@@ -11,7 +11,6 @@ import Register from './components/Register';
 
 function App() {
   const [watchlists, setWatchlists] = useState([]);
-
 //   useEffect(() => {
 //     axios.get('http://localhost:8000/api/watchlists', {withCredentials: true})
 //     .then((res) => {
@@ -31,7 +30,7 @@ function App() {
           <Route path={'/'} element={<Login/>}/>
           <Route path={'/register'} element={<Register />}/>
           <Route path={'/dashboard'} element={<Dashboard watchlists={watchlists} setWatchlists={setWatchlists}/>}/>
-          <Route path={'/createWatchlist'} element={<CreateWatchlist/>}/>
+          {/* <Route path={'/createWatchlist'} element={<CreateWatchlist/>}/> */}
           {/* <Route path={'/addShow/:id'} element={<AddShow watchlists={watchlists} setWatchlists={setWatchlists}/>}/> */}
         </Routes>
       </div>

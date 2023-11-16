@@ -11,11 +11,14 @@ const AddShow = (props) => {
     const [status, setStatus] = useState("");
     const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState();
-    const { id } = props;
+    const {currentWatchlistId, setCurrentWatchlistId} = props;
+    const {currentWatchlist, setCurrentWatchlist} = props;
+    const {currentWatchlistDescription, setCurrentWatchlistDescription} = props;
     const navigate = useNavigate();
+
     const submitHandler = (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:8000/api/${id}/addshow`, 
+        axios.post(`http://localhost:8000/api/${currentWatchlistId}/addshow`, 
             {
                 showName,
                 genre,
