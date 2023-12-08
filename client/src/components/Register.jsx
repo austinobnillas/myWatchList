@@ -63,9 +63,6 @@ const Register = () => {
                         <div className="input">
                             <input type="password" onChange={(e) => {setPassword(e.target.value)}}/>
                         </div>
-                                
-                                
-                            
                         </div>
                         { errors ? <p className="text-danger">{errors.password_error}</p> : null}
                         <div className="formContent">

@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import tvIcon from "../assets/tv.png"
 import AddShow from "./AddShow";
 import CreateWatchlist from "./CreateWatchlist";
+import EditWatchlist from "./EditWatchlist";
+
 
 const Dashboard = (props) => {
     const navigate = useNavigate();
@@ -65,15 +67,31 @@ const Dashboard = (props) => {
                 navigate('/dashboard')
             })
     }
+    const deleteShowHandler = (id) => {
+        axios.delete(`http://localhost:8000/api/deleteshow/${id}`, {withCredentials: true})
+            .then((res) => {
+                console.log(res)
+                const updatedShowList = watchlistContent.filter((show) => show.id !== id )
+                setWatchlistContent(updatedShowList)
+            })
+    }
     const createButtonHandler = () => {
         if (showCreateWatchlist == false)
             setShowCreateWatchlist(true);
         if (showCreateWatchlist == true) 
             setShowCreateWatchlist(false);
         }
+    const editWatchlistHandler = () => {
+        if (editWatchlistDetails == false)
+            setEditWatchlistDetails(true)
+            setAddShowForm(false)
+        if (editWatchlistDetails == true)
+            setEditWatchlistDetails(false)
+    }
     const addShowButtonHandler = () => {
         if (addShowForm == false)
             setAddShowForm(true)
+            setEditWatchlistDetails(false)
         if (addShowForm == true)
             setAddShowForm(false)
     }
@@ -91,8 +109,7 @@ const Dashboard = (props) => {
                         <button onClick={()=> {createButtonHandler(showCreateWatchlist)}} className="createButton">+</button>
                     </div>
                     <div>{ showCreateWatchlist == true ? 
-                        <CreateWatchlist/> : ""
-                    }
+                        <CreateWatchlist/> : "" }
                     </div>
                     <div className="sidebar">
                         {watchlists.map((watchlist, index) => (
@@ -103,6 +120,7 @@ const Dashboard = (props) => {
                                     setCurrentWatchlistDescription(watchlist.description);
                                     setCurrentWatchlistId(watchlist.id)
                                     setAddShowForm(false)
+                                    setEditWatchlistDetails(false)
                                     }}>
                                 <p className="watchlistInformation"><img className="sidebarImg"src={tvIcon} alt="Image of TV" />{watchlist.watchlist_name}</p>
                             </Link>
@@ -121,7 +139,7 @@ const Dashboard = (props) => {
                                 <div className="addAndDelete">
                                     {currentWatchlist ? <button onClick={() => addShowButtonHandler(addShowForm)} className="btn btn-primary">Add a show to this watchlist</button> : '' }
                                     {currentWatchlist ? <div className="editDelete">
-                                        <button  className="btn btn-primary m-1">Edit</button>
+                                        <button onClick={() => editWatchlistHandler(currentWatchlistId)} className="btn btn-primary m-1">Edit</button>
                                         <button onClick={() => deleteWatchlistHandler(currentWatchlistId)} className="btn btn-danger m-1">Delete</button>
                                     </div> : ''}
                                 </div>
@@ -131,20 +149,26 @@ const Dashboard = (props) => {
                             <AddShow 
                             currentWatchlistId={currentWatchlistId} 
                             setCurrentWatchlistId={setCurrentWatchlistId}
-                            currentWatchlist={currentWatchlist}
-                            setCurrentWatchlist={setCurrentWatchlist}
-                            currentWatchlistDescription={currentWatchlistDescription}
-                            setCurrentWatchlistDescription={setCurrentWatchlistDescription}
+                            watchlistContent={watchlistContent}
+                            setWatchlistContent={setWatchlistContent}
+                            addShowForm={addShowForm}
+                            setAddShowForm={setAddShowForm}
                             />
                             : ''
-                        } 
+                        }
+                        {editWatchlistDetails == true ? 
+                            <EditWatchlist currentWatchlistId={currentWatchlistId} 
+                            setCurrentWatchlistId={setCurrentWatchlistId}/>
+                            : ''
+                        }
                         <table className="table table-striped table-dark">
                         {currentWatchlist ? <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Genre</th>
-                                    <th>Number of Episodes</th>
+                                    <th># Episodes</th>
                                     <th>Status</th>
+                                    <th>Options</th>
                                 </tr>
                             </thead>: ""}
                             
@@ -155,6 +179,7 @@ const Dashboard = (props) => {
                                         <td>{watchlistContent.genre}</td>
                                         <td>{watchlistContent.number_of_episodes}</td>
                                         <td>{watchlistContent.status}</td>
+                                        <td><Link>Edit</Link> | <Link onClick={() => {deleteShowHandler(watchlistContent.id)}}>Delete</Link></td>
                                     </tr>
                                     
                                 ))}
@@ -182,10 +207,6 @@ const Dashboard = (props) => {
                                     <h5>Description:</h5>
                                     <p>{showDetails.description}</p>
                                 </div>
-                        
-                                
-                                
-                                
                             </div>
                         ))}
                     </div>

@@ -60,8 +60,8 @@ def edit_watchlist(id):
         validations = watchlist_validations(data)
         if not validations: 
             edited_watchlist_details = {
-                'watchlist_name': data['watchlist_name'],
-                'description': data['description'],
+                'watchlist_name': data['watchlistName'],
+                'description': data['watchlistDescription'],
                 'id': id
             }
             watchlist.Watchlists.edit_watchlist(edited_watchlist_details)

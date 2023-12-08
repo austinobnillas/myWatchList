@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, {useState} from "react";
+import { useEffect } from "react";
 import { useParams, useNavigate} from "react-router-dom";
 
 const AddShow = (props) => {
@@ -12,9 +13,16 @@ const AddShow = (props) => {
     const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState();
     const {currentWatchlistId, setCurrentWatchlistId} = props;
-    const {currentWatchlist, setCurrentWatchlist} = props;
-    const {currentWatchlistDescription, setCurrentWatchlistDescription} = props;
+    const {watchlistContent, setWatchlistContent} = props;
+    const {addShowForm, setAddShowForm} = props
     const navigate = useNavigate();
+
+
+    useEffect( () => {
+        console.log(watchlistContent)
+    }, []
+        
+    )
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -31,7 +39,9 @@ const AddShow = (props) => {
             .then((res) => {
                 console.log(res.data)
                 console.log("SUCCESS")
-                window.location.reload(false)
+                setWatchlistContent([...watchlistContent, res.data])
+                setAddShowForm(false)
+                // window.location.reload(false)
                 navigate('/dashboard')
             })
             .catch((err) => {

@@ -53,7 +53,7 @@ def add_show(watchlist_id):
                 'watchlist_id': watchlist_id
             }
             show.Shows.add_show(show_details)
-            return jsonify({"msg": "Show added"});
+            return jsonify(show_details);
         else: return jsonify(validations), 401
     else: 
         return jsonify({"msg": "false"}), 401;
