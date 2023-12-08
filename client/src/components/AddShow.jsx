@@ -39,7 +39,7 @@ const AddShow = (props) => {
             .then((res) => {
                 console.log(res.data)
                 console.log("SUCCESS")
-                setWatchlistContent([...watchlistContent, res.data])
+                setWatchlistContent([...watchlistContent, res.data[0]])
                 setAddShowForm(false)
                 // window.location.reload(false)
                 navigate('/dashboard')

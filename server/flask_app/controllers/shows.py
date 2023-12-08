@@ -52,8 +52,10 @@ def add_show(watchlist_id):
                 'rating': data['rating'],
                 'watchlist_id': watchlist_id
             }
-            show.Shows.add_show(show_details)
-            return jsonify(show_details);
+            results = show.Shows.add_show(show_details)
+            new_show_value = get_one_show(results)
+            
+            return new_show_value;
         else: return jsonify(validations), 401
     else: 
         return jsonify({"msg": "false"}), 401;
