@@ -19,7 +19,7 @@ axios | react-router-dom
 flask | pymysql | bcrypt | flask-bcrypt | pyjwt | python-dotenv | flask-cors
 
 ### Example ScreenShots:
-![Example UI](/client/src/assets/UIVersion1.jpeg)
+![Example UI](/client/src/assets/UIVersion2.jpeg)
 ![Example UI](/client/src/assets/loginScreenshot.jpeg)
 ![Example UI](/client/src/assets/registerScreenshot.jpeg)
 

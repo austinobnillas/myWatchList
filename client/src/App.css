@@ -173,6 +173,13 @@ p, h1, h2, h3, h4, h5 {
 .showSideContainer::-webkit-scrollbar {
     display: none;
 }
+.showOptions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .showImg {
     height: 250px;
     width: 250px;
@@ -218,9 +225,7 @@ p, h1, h2, h3, h4, h5 {
     font-style: italic;
     margin-bottom: 10px;
 }
-.showDescription {
 
-}
 
 /* LOGIN PAGE */
 

@@ -199,8 +199,8 @@ const Dashboard = (props) => {
                     <div className="showSide">
                         {showDetails.map((showDetails, index) => (
                             <div className="showSideContainer" key={showDetails.id}>
-                                <div className="showOptions">
-                                    <button className="btn btn-primary" onClick={
+                                <div className="showOptions mb-2">
+                                    <button className="me-1 btn btn-primary" onClick={
                                             () => {editShowHandler(showDetails.id)}}>Edit</button>
                                     <button className="btn btn-danger" onClick={() => {deleteShowHandler(showDetails.id)}}>Delete</button>
                                 </div>
