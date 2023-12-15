@@ -87,13 +87,13 @@ def edit_show(id):
         if not validations:
             edited_show_details = {
                 'id': id,
-                'name': data['name'],
+                'name': data['showName'],
                 'genre': data['genre'],
                 'description': data['description'],
-                'number_of_episodes': data['number_of_episodes'],
-                'episodes_completed': data['episodes_completed'],
+                'number_of_episodes': data['numberOfEpisodes'],
+                'episodes_completed': data['episodesCompleted'],
                 'status': data['status'],
-                'rating': data['rating']
+                'rating': data['rating'],
             }
             show.Shows.edit_show(edited_show_details)
             return jsonify({"msg": "updated show details"})

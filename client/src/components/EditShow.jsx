@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import { useEffect } from "react";
 import { useParams, useNavigate} from "react-router-dom";
 
-const AddShow = (props) => {
+const EditShow = (props) => {
     const [showName, setShowName] = useState("");
     const [genre, setGenre] = useState("");
     const [description, setDescription] = useState("");
@@ -12,14 +12,16 @@ const AddShow = (props) => {
     const [status, setStatus] = useState("");
     const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState();
-    const {currentWatchlistId, setCurrentWatchlistId} = props;
     const {watchlistContent, setWatchlistContent} = props;
-    const {addShowForm, setAddShowForm} = props
+    const {showId} = props
     const navigate = useNavigate();
 
+    useEffect(() => {
+        console.log(showId)
+    })
     const submitHandler = (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:8000/api/${currentWatchlistId}/addshow`, 
+        axios.patch(`http://localhost:8000/api/editshow/${showId}`, 
             {
                 showName,
                 genre,
@@ -92,7 +94,6 @@ const AddShow = (props) => {
                             <select className="form-select" name="status" onChange={(e) => setRating(e.target.value)}>
                                 <option value={0}>0</option>
                                 <option value={1}>1</option>
-                                <option value={1}>1</option>
                                 <option value={2}>2</option>
                                 <option value={3}>3</option>
                                 <option value={4}>4</option>
@@ -105,7 +106,7 @@ const AddShow = (props) => {
                             </select>
                         </div>
                     </div>
-                    <button className="btn btn-primary">Add Show</button>
+                    <button className="btn btn-primary">Submit Changes</button>
                 </form>
             </div>
         </div>
@@ -113,4 +114,4 @@ const AddShow = (props) => {
 
 }
 
-export default AddShow;
+export default EditShow;

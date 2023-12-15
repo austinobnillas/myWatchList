@@ -6,6 +6,7 @@ import tvIcon from "../assets/tv.png"
 import AddShow from "./AddShow";
 import CreateWatchlist from "./CreateWatchlist";
 import EditWatchlist from "./EditWatchlist";
+import EditShow from "./EditShow";
 
 
 const Dashboard = (props) => {
@@ -19,6 +20,8 @@ const Dashboard = (props) => {
     const [addShowForm, setAddShowForm] = useState(false);
     const [showCreateWatchlist, setShowCreateWatchlist] = useState(false)
     const [editWatchlistDetails, setEditWatchlistDetails] = useState(false);
+    const [editShowDetails, setEditShowDetails] = useState(false);
+    const [currentShowId, setCurrentShowId] = useState();
 
         useEffect(() => {
                 axios.get('http://localhost:8000/api/watchlists', {withCredentials: true})
@@ -48,6 +51,7 @@ const Dashboard = (props) => {
             .then((res) => {
                 console.log(res.data)
                 setShowDetails(res.data)
+                setEditShowDetails(false)
             })
             .catch((err) => {
                 console.log(err)
@@ -95,6 +99,13 @@ const Dashboard = (props) => {
         if (addShowForm == true)
             setAddShowForm(false)
     }
+    const editShowHandler = (id) => {
+        if (editShowDetails == false)
+            setEditShowDetails(true)
+        if (editShowDetails == true)
+            setEditShowDetails(false)
+    }
+
         
     return (
         <div className="fullBodyContainer">
@@ -168,7 +179,6 @@ const Dashboard = (props) => {
                                     <th>Genre</th>
                                     <th># Episodes</th>
                                     <th>Status</th>
-                                    <th>Options</th>
                                 </tr>
                             </thead>: ""}
                             
@@ -179,7 +189,6 @@ const Dashboard = (props) => {
                                         <td>{watchlistContent.genre}</td>
                                         <td>{watchlistContent.number_of_episodes}</td>
                                         <td>{watchlistContent.status}</td>
-                                        <td><Link>Edit</Link> | <Link onClick={() => {deleteShowHandler(watchlistContent.id)}}>Delete</Link></td>
                                     </tr>
                                     
                                 ))}
@@ -190,18 +199,28 @@ const Dashboard = (props) => {
                     <div className="showSide">
                         {showDetails.map((showDetails, index) => (
                             <div className="showSideContainer" key={showDetails.id}>
+                                <div className="showOptions">
+                                    <button className="btn btn-primary" onClick={
+                                            () => {editShowHandler(showDetails.id)}}>Edit</button>
+                                    <button className="btn btn-danger" onClick={() => {deleteShowHandler(showDetails.id)}}>Delete</button>
+                                </div>
                                 <img className="showImg"src={tvIcon} alt="Image of TV" />
+                                {editShowDetails == true ? 
+                                    <EditShow showId={showDetails.id} /> : ''}
                                 <div className="showTitle">
                                     <h3 className="showName">{showDetails.name}</h3>
                                     
                                 </div>
+                                <p className="showStatus">Status: {showDetails.status}</p>
+                                <div className="showEpisodes">
+                                    <button className="btn btn-danger">-</button>
+                                    <p>Episode: {showDetails.episodes_completed}/{showDetails.number_of_episodes}</p>
+                                    <button className="btn btn-success">+</button>
+                                </div>
                                 <p className="showRating">Rating: {showDetails.rating}/10</p>
                                 <p className="showGenre">Genre: {showDetails.genre}</p>
-                                <div className="showStatus">
-                                    <p>{showDetails.status}</p>
-                                    <p>Episode: {showDetails.episodes_completed}/{showDetails.number_of_episodes}</p>
-                                    
-                                </div>
+                                
+                                
                                 
                                 <div className="showDescription">
                                     <h5>Description:</h5>
