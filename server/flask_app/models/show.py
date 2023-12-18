@@ -21,6 +21,8 @@ class Shows():
             VALUES (%(name)s, %(genre)s, %(description)s, %(number_of_episodes)s, %(episodes_completed)s, %(status)s, %(rating)s, %(watchlist_id)s)
         """
         results = connectToMySQL(db).query_db(query, data)
+        print("MODEL")
+        print(results)
         return results
 #GET ONE SHOW 
     @classmethod
@@ -54,8 +56,7 @@ class Shows():
             rating = %(rating)s
             WHERE id = %(id)s
         """
-        results = connectToMySQL(db).query_db(query, data)
-        return results
+        return connectToMySQL(db).query_db(query, data)
 #DELETE
     @classmethod
     def delete_show(cls, data):

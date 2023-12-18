@@ -26,7 +26,6 @@ const Dashboard = (props) => {
         useEffect(() => {
                 axios.get('http://localhost:8000/api/watchlists', {withCredentials: true})
             .then((res) => {
-                console.log(res.data)
                 setWatchlists(res.data)
             })
             .catch((err) => {
@@ -38,7 +37,7 @@ const Dashboard = (props) => {
     const getWatchListContent = (id) => {
         axios.get(`http://localhost:8000/api/watchlist/shows/${id}`, {withCredentials: true})
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 setWatchlistContent(res.data)
             })
             .catch((err) => {
@@ -49,7 +48,7 @@ const Dashboard = (props) => {
     const getShowDetails = (id) => {
         axios.get(`http://localhost:8000/api/show/${id}`, {withCredentials: true})
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 setShowDetails(res.data)
                 setEditShowDetails(false)
             })
@@ -68,15 +67,17 @@ const Dashboard = (props) => {
         axios.delete(`http://localhost:8000/api/deletewatchlist/${id}`, {withCredentials: true})
             .then((res) => {
                 window.location.reload(false)
+                // console.log(res)
                 navigate('/dashboard')
             })
     }
     const deleteShowHandler = (id) => {
         axios.delete(`http://localhost:8000/api/deleteshow/${id}`, {withCredentials: true})
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 const updatedShowList = watchlistContent.filter((show) => show.id !== id )
                 setWatchlistContent(updatedShowList)
+                setShowDetails([])
             })
     }
     const createButtonHandler = () => {
@@ -206,7 +207,7 @@ const Dashboard = (props) => {
                                 </div>
                                 <img className="showImg"src={tvIcon} alt="Image of TV" />
                                 {editShowDetails == true ? 
-                                    <EditShow showId={showDetails.id} /> : ''}
+                                    <EditShow getWatchListContent={getWatchListContent} showDetails={showDetails} setShowDetails={setShowDetails} showId={showDetails.id} editShowDetails={editShowDetails} setEditShowDetails={setEditShowDetails} /> : ''}
                                 <div className="showTitle">
                                     <h3 className="showName">{showDetails.name}</h3>
                                     

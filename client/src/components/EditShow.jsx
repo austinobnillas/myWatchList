@@ -12,38 +12,47 @@ const EditShow = (props) => {
     const [status, setStatus] = useState("");
     const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState();
+    const {showDetails, setShowDetails} = props
     const {watchlistContent, setWatchlistContent} = props;
+    const {getWatchListContent} = props
     const {showId} = props
+    const {editShowDetails, setEditShowDetails} = props;
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(showId)
-    })
+        useEffect(() => {
+            axios.get(`http://localhost:8000/api/show/${showId}`, {withCredentials: true})
+                .then((res) => {
+                    console.log(res.data[0])
+                    setShowName(res.data[0].name)
+                    setGenre(res.data[0].genre)
+                    setDescription(res.data[0].description)
+                    setNumberOfEpisodes(res.data[0].number_of_episodes)
+                    setEpisodesCompleted(res.data[0].episodes_completed)
+                    setStatus(res.data[0].status)
+                    setRating(res.data[0].rating)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }, [])
     const submitHandler = (e) => {
         e.preventDefault()
-        axios.patch(`http://localhost:8000/api/editshow/${showId}`, 
-            {
+        axios.patch(`http://localhost:8000/api/editshow/${showId}`, {
                 showName,
                 genre,
                 description,
                 numberOfEpisodes,
                 episodesCompleted,
                 status,
-                rating
-            }, {withCredentials: true})
+                rating}, {withCredentials: true})
             .then((res) => {
-                console.log(res.data)
-                console.log("SUCCESS")
-                setWatchlistContent([...watchlistContent, res.data[0]])
-                setAddShowForm(false)
-                // window.location.reload(false)
+                setShowDetails(res.data)
+                setEditShowDetails(false)
                 navigate('/dashboard')
+                getWatchListContent(res.data[0].watchlist_id)
             })
             .catch((err) => {
-                console.log("ERROR")
-                console.log(err.response.data)
                 setErrors(err.response.data)
-                console.log(errors)
             })
     }
 
@@ -55,34 +64,34 @@ const EditShow = (props) => {
                         <div>
                             <label className="form-label">Show Name:</label> 
                             {errors ? <p className="text-danger">{errors.name_error}</p> : ' '} 
-                            <input className="form-control" type="text" onChange={(e) => setShowName(e.target.value)}/>
+                            <input className="form-control" value={showName} type="text" onChange={(e) => setShowName(e.target.value)}/>
                         </div>
                         <div>
                             <label className="form-label">Genre:</label>
                             {errors ? <p className="text-danger">{errors.genre_error}</p>: ""}
-                            <input className="form-control" type="text" onChange={(e) => setGenre(e.target.value)}/>
+                            <input className="form-control" value={genre} type="text" onChange={(e) => setGenre(e.target.value)}/>
                         </div>
                     </div>
                     <div className="formDescription">
                         <label className="form-label">Description:</label>
                         {errors ? <p className="text-danger">{errors.description_error}</p>: ""}
-                        <textarea className="form-control" onChange={(e) => setDescription(e.target.value)}></textarea>
+                        <textarea className="form-control" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                     </div>
                     <div className="formRow3">
                         <div>
                             <label className="form-label">Number of Episodes:</label>
                             {errors ? <p className="text-danger">{errors.number_of_episodes_error}</p>: ""}
-                            <input className="form-control" type="number" onChange={(e) => setNumberOfEpisodes(e.target.value)}/>
+                            <input className="form-control" value={numberOfEpisodes} type="number" onChange={(e) => setNumberOfEpisodes(e.target.value)}/>
                         </div>
                         <div>
                             <label className="form-label">Episodes Completed:</label>
                             {errors ? <p className="text-danger">{errors.episodes_completed_error}</p>: ""}
-                            <input className="form-control" type="number" onChange={(e) => setEpisodesCompleted(e.target.value)}/>
+                            <input className="form-control" value={episodesCompleted} type="number" onChange={(e) => setEpisodesCompleted(e.target.value)}/>
                         </div>
                         <div>
                             <label className="form-label">Status:</label>
                             {errors ? <p className="text-danger">{errors.status_error}</p>: ""}
-                            <select className="form-select" name="status" onChange={(e) => setStatus(e.target.value)}>
+                            <select className="form-select" value={status} name="status" onChange={(e) => setStatus(e.target.value)}>
                                 <option value={"Plan to Watch"}>Plan to Watch</option>
                                 <option value={"Watching"}>Watching</option>
                                 <option value={"Completed"}>Completed</option>
@@ -91,7 +100,7 @@ const EditShow = (props) => {
                             </select>
                             <label className="form-label">Rating:</label>
                             {errors ? <p className="text-danger">{errors.rating_error}</p>: ""}
-                            <select className="form-select" name="status" onChange={(e) => setRating(e.target.value)}>
+                            <select className="form-select" value={rating} name="status" onChange={(e) => setRating(e.target.value)}>
                                 <option value={0}>0</option>
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>

@@ -20,10 +20,10 @@ def show_validations(data):
     if len(data['description']) <= 3:
         validation_errors["description_error"] = "Description is too short."
         # validation_errors.append({"description_error": "Description is too short!"})
-    if data['numberOfEpisodes'] == 0:
+    if int(data['numberOfEpisodes']) == 0:
         validation_errors["number_of_episodes_error"] = "Number of episodes is requred."
         # validation_errors.append({"number_of_episodes_error": "Number of episodes is requred!"})
-    if data['episodesCompleted'] > data['numberOfEpisodes']:
+    if int(data['episodesCompleted']) > int(data['numberOfEpisodes']):
         validation_errors["episodes_completed_error"] = "Episodes completed cannot be more than total number of episodes"
         # validation_errors.append({"episodes_completed_error": "Episodes completed cannot be more than total number of episodes"})
     if not data['status']:
@@ -53,6 +53,7 @@ def add_show(watchlist_id):
                 'watchlist_id': watchlist_id
             }
             results = show.Shows.add_show(show_details)
+            print(results)
             new_show_value = get_one_show(results)
             
             return new_show_value;
@@ -83,6 +84,7 @@ def edit_show(id):
     cookie_check = users.check_jwt()
     if cookie_check == True: 
         data = request.get_json()
+        print(data)
         validations = show_validations(data)
         if not validations:
             edited_show_details = {
@@ -93,11 +95,13 @@ def edit_show(id):
                 'number_of_episodes': data['numberOfEpisodes'],
                 'episodes_completed': data['episodesCompleted'],
                 'status': data['status'],
-                'rating': data['rating'],
+                'rating': data['rating']
             }
             show.Shows.edit_show(edited_show_details)
-            return jsonify({"msg": "updated show details"})
-        else: return validations, 401
+            updated_show_value = get_one_show(id)
+            return updated_show_value
+        else: 
+            return jsonify(validations), 401
 
     else: 
         return jsonify({"msg": "false"}), 401;

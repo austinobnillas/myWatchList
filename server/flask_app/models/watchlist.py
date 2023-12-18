@@ -30,6 +30,7 @@ class Watchlists():
         return results 
 
 # READ ONE
+
     def get_one_watchlist(data):
         query = """
             SELECT * FROM watchlist
@@ -50,7 +51,13 @@ class Watchlists():
         results = connectToMySQL(db).query_db(query, data)
         return results
 # DELETE
-    def delete_watchlist(data):
+    @classmethod
+    def delete_watchlist(cls, data):
+        query2 = """
+            DELETE FROM shows 
+            WHERE watchlist_id = %(id)s
+        """
+        connectToMySQL(db).query_db(query2, data)
         query = """
             DELETE FROM watchlist
             WHERE id = %(id)s;
