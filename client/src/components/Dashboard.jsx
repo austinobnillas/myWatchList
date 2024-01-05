@@ -22,6 +22,7 @@ const Dashboard = (props) => {
     const [editWatchlistDetails, setEditWatchlistDetails] = useState(false);
     const [editShowDetails, setEditShowDetails] = useState(false);
     const [currentShowId, setCurrentShowId] = useState();
+    const [episodesCompleted, setEpisodesCompleted] = useState();
 
         useEffect(() => {
                 axios.get('http://localhost:8000/api/watchlists', {withCredentials: true})
@@ -50,7 +51,20 @@ const Dashboard = (props) => {
             .then((res) => {
                 // console.log(res.data)
                 setShowDetails(res.data)
+                setEpisodesCompleted(res.data[0].episodes_completed)
                 setEditShowDetails(false)
+                
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+    const updateEpisodesCompleted = (id, updatedEp) => {
+        axios.patch(`http://localhost:8000/api/updateepisodes/${id}`, {updatedEp}, {withCredentials: true})
+            .then((res) => {
+                // console.log(res)
+                setEpisodesCompleted(res.data[0].episodes_completed)
+                
             })
             .catch((err) => {
                 console.log(err)
@@ -80,6 +94,7 @@ const Dashboard = (props) => {
                 setShowDetails([])
             })
     }
+
     const createButtonHandler = () => {
         if (showCreateWatchlist == false)
             setShowCreateWatchlist(true);
@@ -120,10 +135,11 @@ const Dashboard = (props) => {
                         <h2>Your Watchlists</h2>
                         <button onClick={()=> {createButtonHandler(showCreateWatchlist)}} className="createButton">+</button>
                     </div>
-                    <div>{ showCreateWatchlist == true ? 
-                        <CreateWatchlist/> : "" }
-                    </div>
+                    
                     <div className="sidebar">
+                        <div>{ showCreateWatchlist == true ? 
+                            <CreateWatchlist/> : "" }
+                        </div>
                         {watchlists.map((watchlist, index) => (
                             <Link className="watchlistSidebarContainer" key={watchlist.id} 
                                 onClick={()=> {
@@ -214,9 +230,10 @@ const Dashboard = (props) => {
                                 </div>
                                 <p className="showStatus">Status: {showDetails.status}</p>
                                 <div className="showEpisodes">
-                                    <button className="btn btn-danger">-</button>
-                                    <p>Episode: {showDetails.episodes_completed}/{showDetails.number_of_episodes}</p>
-                                    <button className="btn btn-success">+</button>
+                                    <button onClick={
+                                        () => {updateEpisodesCompleted(showDetails.id, episodesCompleted - 1)}} className="btn btn-danger">-</button>
+                                    <p>Episode: {episodesCompleted}/{showDetails.number_of_episodes}</p>
+                                    <button onClick={() => {updateEpisodesCompleted(showDetails.id, episodesCompleted + 1)}} className="btn btn-success">+</button>
                                 </div>
                                 <p className="showRating">Rating: {showDetails.rating}/10</p>
                                 <p className="showGenre">Genre: {showDetails.genre}</p>

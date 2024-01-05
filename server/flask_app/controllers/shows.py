@@ -106,6 +106,21 @@ def edit_show(id):
     else: 
         return jsonify({"msg": "false"}), 401;
 
+@app.route('/api/updateepisodes/<int:id>', methods=['PATCH'])
+def update_episdoes_completed(id):
+    cookie_check = users.check_jwt()
+    data = request.get_json()
+    print(data)
+    updated_episode = {
+        'id': id,
+        'episodes_completed': data['updatedEp']
+    }
+    show.Shows.edit_episodes_watched(updated_episode)
+    updated_show_value = get_one_show(id)
+    print(updated_show_value)
+    return updated_show_value
+
+
 @app.route('/api/deleteshow/<int:id>', methods=['DELETE'])
 def delete_show(id):
     cookie_check = users.check_jwt()

@@ -9,13 +9,16 @@ from flask_bcrypt import Bcrypt
 secret_key = app.secret_key
 
 def watchlist_validations(data):
-    validation_errors = []
+    validation_errors = {}
     if len(data['watchlistName']) <= 3:
-        validation_errors.append({"name_error": "Watchlist name too short"})
+        validation_errors["name_error"] = "Watchlist name too short."
+        # validation_errors.append({"name_error": "Watchlist name too short"})
     if len(data['watchlistDescription']) <= 3:
-        validation_errors.append({"description_error": "Description too short"})
+        validation_errors["description_error"] = "Description too short"
+        # validation_errors.append({"description_error": "Description too short"})
     if len(data['watchlistDescription']) > 200:
-        validation_errors.append({"description_error": "Description cannot be over 200 charcters"})
+        validation_errors["description_error"] = "Description cannot be over 200 charcters"
+        # validation_errors.append({"description_error": "Description cannot be over 200 charcters"})
     return validation_errors
 
 @app.route('/api/watchlists', methods=['GET'])

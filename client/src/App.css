@@ -3,6 +3,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: Roboto Mono;
     }
 
 p, h1, h2, h3, h4, h5 {
@@ -315,4 +316,11 @@ p, h1, h2, h3, h4, h5 {
     margin-bottom: 15px;
 }
 
+/*  CREATE WATCHLIST */
 
+.createWatchlistForm {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px;
+}

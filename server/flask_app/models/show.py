@@ -57,6 +57,16 @@ class Shows():
             WHERE id = %(id)s
         """
         return connectToMySQL(db).query_db(query, data)
+
+    @classmethod
+    def edit_episodes_watched(cls, data):
+        query =  """
+        UPDATE shows
+        SET episodes_completed = %(episodes_completed)s
+        WHERE id = %(id)s
+        """
+        return connectToMySQL(db).query_db(query, data)
+        
 #DELETE
     @classmethod
     def delete_show(cls, data):
