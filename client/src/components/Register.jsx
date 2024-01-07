@@ -15,13 +15,13 @@ const Register = () => {
         e.preventDefault();
         axios.post(`http://localhost:8000/api/register`, {username, email, password, confirmPassword}, {withCredentials: true})
         .then((res) => {
-            console.log(res)
+            // console.log(res)
             navigate('/dashboard')
         })
         .catch((err) => {
-            console.log(err.response.data)
+            // console.log(err.response.data)
             setErrors(err.response.data)
-            console.log(errors.email_errors)
+            // console.log(errors.email_errors)
         })
     }
 

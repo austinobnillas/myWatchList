@@ -13,11 +13,11 @@ const Login = () => {
         e.preventDefault();
         axios.post(`http://localhost:8000/api/login`, {username, password}, {withCredentials: true})
         .then((res) => {
-            console.log(res)
+            // console.log(res)
             navigate('/dashboard')
         })
         .catch((err) => {
-            console.log(err.response.data.msg)
+            // console.log(err.response.data.msg)
             setErrors(err.response.data.msg)
         })
     }
@@ -48,8 +48,6 @@ const Login = () => {
                     </div>
                 </form>
             </div>
-            
-            
             
         </div>
         

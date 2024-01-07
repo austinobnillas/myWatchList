@@ -77,10 +77,10 @@ def login ():
     user_account = user.User.login(request.get_json())
     # print ("this is :", user_account['username'])
     if not user_account:
-        return jsonify({"msg": "Invalid username/password"}), 401
+        return jsonify({"msg": "Invalid username/password"}), 400
     if not bcrypt.check_password_hash(user_account['password'], data['password']):
     # if data['password'] != user_account['password']:
-        return jsonify({"msg": "Invalid username/password"}), 401
+        return jsonify({"msg": "Invalid username/password"}), 400
     # JWT CREATION
     print(data['username'])
     payload = {

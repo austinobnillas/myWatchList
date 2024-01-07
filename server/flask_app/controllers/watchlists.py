@@ -51,7 +51,7 @@ def create_watchlist():
             watchlist.Watchlists.create_watchlist(watchlist_details)
             # response = make_response(jsonify({'message': 'Watchlist created!'}))
             return jsonify({"msg": "Watchlist Created"})
-        else: return validations, 401
+        else: return validations, 400
     else: 
         return jsonify({"msg": "false"}), 401;
 
@@ -69,7 +69,7 @@ def edit_watchlist(id):
             }
             watchlist.Watchlists.edit_watchlist(edited_watchlist_details)
             return jsonify({"msg": "updated watchlist"})
-        else: return validations, 401
+        else: return validations, 400
     else: 
         return jsonify({"msg": "false"}), 401;
 

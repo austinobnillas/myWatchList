@@ -37,7 +37,7 @@ const CreateWatchlist = (props) => {
             <div>
                 <label className="form-label" >Description:</label>
                 {errors ? <p className="text-danger">{errors.description_error}</p>: ""}
-                <input className="form-control" onChange={(e) => setWatchlistDescription(e.target.value)} type="text" name="watchlistDescription"/>
+                <textarea className="form-control" onChange={(e) => setWatchlistDescription(e.target.value)} type="text" name="watchlistDescription"/>
             </div>
             <button className="btn btn-primary mt-3 mb-3">Create</button>
         </form>

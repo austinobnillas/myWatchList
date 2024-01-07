@@ -77,7 +77,7 @@ const EditShow = (props) => {
                         {errors ? <p className="text-danger">{errors.description_error}</p>: ""}
                         <textarea className="form-control" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                     </div>
-                    <div className="formRow3">
+                    <div className="editformRow3">
                         <div>
                             <label className="form-label">Number of Episodes:</label>
                             {errors ? <p className="text-danger">{errors.number_of_episodes_error}</p>: ""}
@@ -115,7 +115,7 @@ const EditShow = (props) => {
                             </select>
                         </div>
                     </div>
-                    <button className="btn btn-primary">Submit Changes</button>
+                    <button className="btn btn-primary mt-3 mb-3">Save Changes</button>
                 </form>
             </div>
         </div>

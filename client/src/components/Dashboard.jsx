@@ -186,7 +186,12 @@ const Dashboard = (props) => {
                         }
                         {editWatchlistDetails == true ? 
                             <EditWatchlist currentWatchlistId={currentWatchlistId} 
-                            setCurrentWatchlistId={setCurrentWatchlistId}/>
+                            setCurrentWatchlistId={setCurrentWatchlistId}
+                            currentWatchlist={currentWatchlist}
+                            setCurrentWatchlist={setCurrentWatchlist}
+                            currentWatchlistDescription={currentWatchlistDescription}
+                            setCurrentWatchlistDescription={setCurrentWatchlistDescription}
+                            />
                             : ''
                         }
                         <table className="table table-striped table-dark">

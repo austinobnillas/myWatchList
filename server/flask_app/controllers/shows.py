@@ -57,7 +57,7 @@ def add_show(watchlist_id):
             new_show_value = get_one_show(results)
             
             return new_show_value;
-        else: return jsonify(validations), 401
+        else: return jsonify(validations), 400
     else: 
         return jsonify({"msg": "false"}), 401;
 
@@ -101,7 +101,7 @@ def edit_show(id):
             updated_show_value = get_one_show(id)
             return updated_show_value
         else: 
-            return jsonify(validations), 401
+            return jsonify(validations), 400
 
     else: 
         return jsonify({"msg": "false"}), 401;

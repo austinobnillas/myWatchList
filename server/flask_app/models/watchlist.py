@@ -30,8 +30,8 @@ class Watchlists():
         return results 
 
 # READ ONE
-
-    def get_one_watchlist(data):
+    @classmethod
+    def get_one_watchlist(cls, data):
         query = """
             SELECT * FROM watchlist
             JOIN shows ON watchlist.id = shows.watchlist_id
@@ -41,7 +41,8 @@ class Watchlists():
         print(results)
         return results 
 # UPDATE
-    def edit_watchlist(data):
+    @classmethod
+    def edit_watchlist(cls, data):
         query = """
             UPDATE watchlist
             SET watchlist_name = %(watchlist_name)s,

@@ -9,7 +9,7 @@ const AddShow = (props) => {
     const [description, setDescription] = useState("");
     const [numberOfEpisodes, setNumberOfEpisodes] = useState(0);
     const [episodesCompleted, setEpisodesCompleted] = useState(0);
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState("Plan to Watch");
     const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState();
     const {currentWatchlistId, setCurrentWatchlistId} = props;
@@ -80,7 +80,11 @@ const AddShow = (props) => {
                         <div>
                             <label className="form-label">Status:</label>
                             {errors ? <p className="text-danger">{errors.status_error}</p>: ""}
-                            <select className="form-select" name="status" onChange={(e) => setStatus(e.target.value)}>
+                            <select className="form-select" 
+                                defaultValue={status} 
+                                name="status" 
+                                onChange={(e) => setStatus(e.target.value)}>
+                                    
                                 <option value={"Plan to Watch"}>Plan to Watch</option>
                                 <option value={"Watching"}>Watching</option>
                                 <option value={"Completed"}>Completed</option>
