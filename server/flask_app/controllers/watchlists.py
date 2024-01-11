@@ -90,3 +90,82 @@ def delete_watchlist(id):
         return jsonify({"msg": "Deleted"})
     else: 
         return jsonify({"msg": "false"}), 401;
+
+# DEMO PAGE RUNS
+
+example_watchlists = [  {   'watchlist_name': 'Example Watchlist 1',
+                            'description': 'Example Description 1',
+                            'example_show1': {'name': 'Example Show 1',
+                                'genre': 'Fiction',
+                                'description': 'Example Show Description',
+                                'number_of_episodes': 12,
+                                'episodes_completed': 2,
+                                'status': 'Watching',
+                                'rating': 9,
+                                'id': 1     },
+                            'example_show2': {'name': 'Example Show 2',
+                                'genre': 'Fiction',
+                                'description': 'Example Show Description 2',
+                                'number_of_episodes': 12,
+                                'episodes_completed': 0,
+                                'status': 'Plan to Watch',
+                                'rating': 9,
+                                'id': 1     }},
+
+                        {   'watchlist_name': 'Example Watchlist 2',
+                            'description': 'Example Description 2',
+                            'example_show1': {'name': 'Example Show 1',
+                                'genre': 'Fiction',
+                                'description': 'Example Show Description',
+                                'number_of_episodes': 12,
+                                'episodes_completed': 5,
+                                'status': 'On Hold',
+                                'rating': 9,
+                                'id': 1     },
+                            'example_show2': {'name': 'Example Show 2',
+                                'genre': 'Fiction',
+                                'description': 'Example Show Description 2',
+                                'number_of_episodes': 12,
+                                'episodes_completed': 12,
+                                'status': 'Completed',
+                                'rating': 9,
+                                'id': 1     },
+                            'example_show3': {'name': 'Example Show 3',
+                                'genre': 'Fiction',
+                                'description': 'Example Show Description 3',
+                                'number_of_episodes': 12,
+                                'episodes_completed': 4,
+                                'status': 'Watching',
+                                'rating': 9,
+                                'id': 1     }},
+]
+
+
+@app.route('/api/demo', methods=['GET'])
+def demo():
+    example_watchlist = [{'watchlist_name': 'Example Watchlist 1',
+                            'description': 'Example Description 1'}]
+
+    return example_watchlist
+
+@app.route('/api/demo/watchlists', methods=['GET'])
+def demo_watchlists():
+    example_watchlist_content = [{'name': 'Example Show 1',
+                                'genre': 'Fiction',
+                                'description': 'Example Description',
+                                'number_of_episodes': 12,
+                                'episodes_completed': 2,
+                                'status': 'Watching',
+                                'rating': 9}]
+    return example_watchlist_content
+
+@app.route('/api/demo/shows', methods=['GET'])
+def demo_shows():
+    example_show = [{'name': 'Example Show 1',
+                                'genre': 'Fiction',
+                                'description': 'Example Description',
+                                'number_of_episodes': 12,
+                                'episodes_completed': 2,
+                                'status': 'Watching',
+                                'rating': 9}]
+    return example_show

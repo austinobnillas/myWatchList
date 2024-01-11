@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 import CreateWatchlist from './components/CreateWatchlist';
 // import AddShow from './components/AddShow';
 import Register from './components/Register';
+import Demo from './components/Demo';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path={'/'} element={<Login/>}/>
           <Route path={'/register'} element={<Register />}/>
           <Route path={'/dashboard'} element={<Dashboard watchlists={watchlists} setWatchlists={setWatchlists}/>}/>
+          <Route path={'/demo'} element={<Demo />}/>
           {/* <Route path={'/createWatchlist'} element={<CreateWatchlist/>}/> */}
           {/* <Route path={'/addShow/:id'} element={<AddShow watchlists={watchlists} setWatchlists={setWatchlists}/>}/> */}
         </Routes>

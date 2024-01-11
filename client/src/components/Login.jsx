@@ -29,7 +29,7 @@ const Login = () => {
                 <form className="loginFormContainer" onSubmit={loginHandler}>
                     <h1 className="loginHeader">MyWatchList | Login</h1>
                     <p>Don't Have an account? <Link to={'/register'}>Register Here</Link></p>
-                    
+                    <p><Link to={'/demo'}>Demo</Link> | <Link to={'/demo'}>Repo</Link></p>
                     <div className="username">
                         <p>
                             <label htmlFor="Username">Username: </label>

@@ -33,6 +33,7 @@ const Register = () => {
                 <form className="loginFormContainer" onSubmit={registerHandler}>
                     <h1 className="loginHeader">MyWatchList | Register</h1>
                     <p>Already have an account? <Link to={'/'}>Login Here</Link></p>
+                    <p><Link to={'/demo'}>Demo</Link> | <Link to={'/demo'}>Repo</Link></p>
                     {/* { errors. ? <p className="text-danger">{errors}</p> : null} */}
                     <div className="formContainer">
                         <div className="formContent">
