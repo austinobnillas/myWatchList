@@ -25,7 +25,7 @@ const Demo = (props) => {
     const [episodesCompleted, setEpisodesCompleted] = useState();
 
     useEffect(() => {
-            axios.get('http://18.220.120.76/api/demo')
+            axios.get('http://localhost:8000/api/demo')
         .then((res) => {
             console.log(res.data)
             setWatchlists(res.data)
@@ -37,7 +37,7 @@ const Demo = (props) => {
     }, [])
 
     const getWatchListContent = (id) => {
-        axios.get(`http://18.220.120.76/api/demo/watchlists`)
+        axios.get(`http://localhost:8000/api/demo/watchlists`)
             .then((res) => {
                 // console.log(res.data)
                 setWatchlistContent(res.data)
@@ -49,7 +49,7 @@ const Demo = (props) => {
 
     const getShowDetails = (id) => {
 
-        axios.get(`http://18.220.120.76/api/demo/shows`)
+        axios.get(`http://localhost:8000/api/demo/shows`)
             .then((res) => {
                 console.log(res.data)
                 setShowDetails(res.data)
