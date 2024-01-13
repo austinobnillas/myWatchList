@@ -6,4 +6,4 @@ from flask_app.controllers import shows;
 
 
 if __name__=="__main__":
-    app.run(debug=True, host="localhost", port = os.getenv("DB_PORT"))
+    app.run(debug=True, host="localhost", port = 8000)
