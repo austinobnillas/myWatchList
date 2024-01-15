@@ -26,7 +26,7 @@ class Watchlists():
             WHERE created_by = %(username)s
         """
         results = connectToMySQL(db).query_db(query, data)
-        # print(results)
+        print(results)
         return results 
 
 # READ ONE

@@ -23,6 +23,7 @@ def watchlist_validations(data):
 
 @app.route('/api/watchlists', methods=['GET'])
 def get_all_watchlist():
+    print("TEST")
     cookie_check = users.check_jwt()
     if cookie_check == True: 
         cookie = request.cookies.get('jwt_token')
@@ -92,54 +93,6 @@ def delete_watchlist(id):
         return jsonify({"msg": "false"}), 401;
 
 # DEMO PAGE RUNS
-
-example_watchlists = [  {   'watchlist_name': 'Example Watchlist 1',
-                            'description': 'Example Description 1',
-                            'example_show1': {'name': 'Example Show 1',
-                                'genre': 'Fiction',
-                                'description': 'Example Show Description',
-                                'number_of_episodes': 12,
-                                'episodes_completed': 2,
-                                'status': 'Watching',
-                                'rating': 9,
-                                'id': 1     },
-                            'example_show2': {'name': 'Example Show 2',
-                                'genre': 'Fiction',
-                                'description': 'Example Show Description 2',
-                                'number_of_episodes': 12,
-                                'episodes_completed': 0,
-                                'status': 'Plan to Watch',
-                                'rating': 9,
-                                'id': 1     }},
-
-                        {   'watchlist_name': 'Example Watchlist 2',
-                            'description': 'Example Description 2',
-                            'example_show1': {'name': 'Example Show 1',
-                                'genre': 'Fiction',
-                                'description': 'Example Show Description',
-                                'number_of_episodes': 12,
-                                'episodes_completed': 5,
-                                'status': 'On Hold',
-                                'rating': 9,
-                                'id': 1     },
-                            'example_show2': {'name': 'Example Show 2',
-                                'genre': 'Fiction',
-                                'description': 'Example Show Description 2',
-                                'number_of_episodes': 12,
-                                'episodes_completed': 12,
-                                'status': 'Completed',
-                                'rating': 9,
-                                'id': 1     },
-                            'example_show3': {'name': 'Example Show 3',
-                                'genre': 'Fiction',
-                                'description': 'Example Show Description 3',
-                                'number_of_episodes': 12,
-                                'episodes_completed': 4,
-                                'status': 'Watching',
-                                'rating': 9,
-                                'id': 1     }},
-]
-
 
 @app.route('/api/demo', methods=['GET'])
 def demo():
