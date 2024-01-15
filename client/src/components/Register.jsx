@@ -20,6 +20,7 @@ const Register = () => {
         })
         .catch((err) => {
             // console.log(err.response.data)
+            console.log(err)
             setErrors(err.response.data)
             // console.log(errors.email_errors)
         })
