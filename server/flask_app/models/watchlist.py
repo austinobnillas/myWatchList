@@ -23,11 +23,11 @@ class Watchlists():
     def get_all_watchlists(cls, data):
         query = """
             SELECT * FROM watchlist
-            WHERE created_by = %(username)s
+            WHERE created_by = %(username)s;
         """
         results = connectToMySQL(db).query_db(query, data)
         print(results)
-        return results 
+        return results
 
 # READ ONE
     @classmethod

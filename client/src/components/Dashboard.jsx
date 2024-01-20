@@ -28,6 +28,7 @@ const Dashboard = (props) => {
                 axios.get('http://localhost:8000/api/watchlists', {withCredentials: true})
             .then((res) => {
                 setWatchlists(res.data)
+                console.log(res)
             })
             .catch((err) => {
                 console.log(err)
