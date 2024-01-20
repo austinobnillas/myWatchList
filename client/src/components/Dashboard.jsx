@@ -11,7 +11,7 @@ import EditShow from "./EditShow";
 
 const Dashboard = (props) => {
     const navigate = useNavigate();
-    const {watchlists, setWatchlists} = props;
+    const [watchlists, setWatchlists] = useState([]);
     const [watchlistContent, setWatchlistContent] = useState([])
     const [currentWatchlist, setCurrentWatchlist] = useState("");
     const [currentWatchlistId, setCurrentWatchlistId] = useState(0);
@@ -28,7 +28,7 @@ const Dashboard = (props) => {
                 axios.get('http://localhost:8000/api/watchlists', {withCredentials: true})
             .then((res) => {
                 setWatchlists(res.data)
-                console.log(res)
+                console.log(res.data)
             })
             .catch((err) => {
                 console.log(err)
