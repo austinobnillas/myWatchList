@@ -76,6 +76,7 @@ def login ():
     exp_timestamp = int(expiration_time.timestamp())
     user_account = user.User.login(request.get_json())
     # print ("this is :", user_account['username'])
+    print(user_account)
     if not user_account:
         return jsonify({"msg": "Invalid username/password"}), 400
     if not bcrypt.check_password_hash(user_account['password'], data['password']):

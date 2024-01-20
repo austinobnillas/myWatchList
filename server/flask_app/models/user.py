@@ -1,5 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-db = "MyWatchList"
+db = "my_watch_list"
 
 class User(): 
     def __init__(self, data):
