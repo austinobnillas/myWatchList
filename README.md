@@ -1,5 +1,5 @@
 # MyWatchList   
-### * This app is in ongoing production *      
+### * This app is not mobile optimized *      
 
 ## Overview   
 MyWatchList is an app for the average TV show or movie binger. With this app you can create watchlists and add shows within this watchlist thus organizing your shows for you to keep track of what you are currently watching or planning to watch. You are required to register and login in order to use any part of this web app. 
